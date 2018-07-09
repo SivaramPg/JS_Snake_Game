@@ -1,0 +1,40 @@
+* {
+  /* removing pre-existing margins and paddings so that we can assign what is necessary  */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  /* For use with 'rem' 1rem = 16px and setting font size to this value makes 1rem = 10px making it easier to calculate. */
+  font-size: 62.5%;
+  font-family: 'Fira Sans','Open Sans', sans-serif, 'Courier New', monospace; 
+}
+
+header  #heading {
+  /* margin: auto 50%; */
+  font-size: 2rem;
+  text-align: center;
+  padding: 1rem;
+  height: auto;
+  width: auto;
+  background: dodgerblue;
+}
+
+#myCanvas {
+  width: 100%;
+  height: 84vh;
+  border: 0.5rem dashed red;
+}
+
+footer {
+  background-color: black;
+  padding: 1rem;
+}
+
+footer .footerElements {
+  font-size: 1rem;
+  text-align: center;
+  line-height: 1.6rem;
+  color: white;
+}
