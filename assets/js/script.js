@@ -19,11 +19,12 @@ const generateSnake = () => {
 
 }
 //creating snake of length 1 in the middle.
-const initialSnakeHeight = 30;
-const initialSnakeWidth= 30;
+let initialSnakeWidth = 25;
+let initialSnakeHeight = 25;
 let xPos = (window.innerWidth - initialSnakeWidth) / 2 ;
 let yPos = (window.innerHeight - initialSnakeHeight) / 2;
-ctx.fillStyle = "#FF0000";
+ctx.fillStyle = "#FF0";
+//creating snake of length 1 in the middle.
 ctx.fillRect(xPos, yPos, initialSnakeWidth, initialSnakeHeight);
 
 //Creating an Apple 
@@ -36,7 +37,7 @@ const generateApple = () => {
   ctx.fillStyle = "#FF0F00";
   ctx.fillRect(randXPos, randYPos, appleWidth, appleHeight);
 }
-
+generateApple();
 // listening for arrow keys and escape to end the game.
 document.addEventListener("keydown", (event) => {
   switch(event) {
@@ -58,7 +59,7 @@ document.addEventListener("keydown", (event) => {
     case (event.which === 27 || event.keyCode === 27):
       gameOver = true;
     default:
-      console.log(User)
+     
     }
   }
 );
