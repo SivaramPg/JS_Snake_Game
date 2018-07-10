@@ -1,6 +1,12 @@
 const body = document.querySelector("body");
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
+const currentPos = {
+	snakeX: '',
+	snakeY: '',
+	appleX: '',
+	appleY: '',
+}
 
 // ** For resizing the canvas depending on the window size.**
 const setDisplay=()=>{
@@ -18,24 +24,34 @@ const generateSnake = () => {
 	const xPos = (window.innerWidth - initialSnakeWidth) / 2 ;
 	const yPos = (window.innerHeight - initialSnakeHeight) / 2;
 	ctx.fillStyle = "#FF0";
-	//creating snake of length 1 in the middle.
 	ctx.fillRect(xPos, yPos, initialSnakeWidth, initialSnakeHeight);
+	currentPos.snakeX = xPos;
+	currentPos.snakeY = yPos;
 }
 
 const generateApple = () => {
 	const appleWidth = 30;
 	const appleHeight = 30;
-	let randXPos = Math.floor(Math.random() * (window.innerWidth - appleWidth));
-	let randYPos = Math.floor(Math.random() * (window.innerHeight - appleHeight));
+	let randXPos, randYPos;
+	//Loop for checking if snake head exists at expected place for apple
+	//Realocate apple if true.
+	do {
+		randXPos = Math.floor(Math.random() * (window.innerWidth - appleWidth));
+		randYPos = Math.floor(Math.random() * (window.innerHeight - appleHeight));
+	}
+	while (randXPos===currentPos.snakeX && randYPos===currentPos.snakeY);
+
 	ctx.fillStyle = "#FF0F00";
 	ctx.fillRect(randXPos, randYPos, appleWidth, appleHeight);
+	currentPos.appleX = randXPos;
+	currentPos.appleY = randYPos;
 }
 
 //Triggers for initiation and restart
 const play = () => {
 	console.log('Play');
-	generateApple();
 	generateSnake();
+	generateApple();
 }
 window.addEventListener('load', play);
 
@@ -69,5 +85,6 @@ document.addEventListener("keydown", (event) => {
 //After collision condition and escape
 const gameOverRun = () => {
 	alert('Game Over! Play Again?');
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	play();
 } 
