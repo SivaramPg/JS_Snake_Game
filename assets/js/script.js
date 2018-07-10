@@ -59,7 +59,9 @@ document.addEventListener("keydown", (event) => {
   switch(event) {
     // Use either which or keyCode, depending on browser support
     case (event.which === 37 || event.keyCode === 37):
-      goLeft ();
+      const goLeft = () => {
+        
+      };
       break;
     case (event.which === 38 || event.keyCode === 38):
       goUp();
