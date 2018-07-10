@@ -9,16 +9,11 @@ canvas.height = window.innerHeight;
 
 const ctx = canvas.getContext("2d");
 
-// Placeholder content
+//creating a box of fixed dimension and color that will be added to the center as the snake and subsequently added to it as it eats the apples.
 
-// Create gradient
-const  grd = ctx.createLinearGradient(0, 0, 200, 0);
-grd.addColorStop(0, "red");
-grd.addColorStop(1, "white");
 
-// Fill with gradient
-ctx.fillStyle = grd;
-ctx.fillRect(10, 10, 150, 80);
+//creating snake of length 1 in the middle.
+
 
 // Page scrolls to canvas element on load... Works fine on Edge and chrome when tab closed and reopened but bugs out on refresh.
 window.addEventListener('load', () => {
