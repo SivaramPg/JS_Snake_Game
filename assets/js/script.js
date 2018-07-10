@@ -1,22 +1,35 @@
+const body = document.querySelector("body");
 const canvas = document.getElementById("myCanvas");
-
-//
-// ** For resizing the canvas depending on the window size.**
-//
-// canvas width manipulated to prevent horizontal scrolling and to compensate for the vertical scroll bar
-// In future if header and footer are removed then REMOVE THE SUBTRACTION OF 27 FROM THE canvas.width.
-
-canvas.width = window.innerWidth - 27;
-canvas.height = window.innerHeight;
 
 const ctx = canvas.getContext("2d");
 
-// Create gradient
-const  grd = ctx.createLinearGradient(0, 0, 200, 0);
-grd.addColorStop(0, "red");
-grd.addColorStop(1, "white");
 
-// Fill with gradient
-ctx.fillStyle = grd;
-ctx.fillRect(10, 10, 150, 80);
+// ** For resizing the canvas depending on the window size.**
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
+// creating a box of fixed dimension and color that will be added to the center as the snake and subsequently added to it as it eats the apples.
+// variable values can be refactored directly into the code if need be 
+let initialSnakeWidth = 25;
+let initialSnakeHeight = 25;
+let xpos = (window.innerWidth - initialSnakeWidth) / 2 ;
+let ypos = (window.innerHeight - initialSnakeHeight) / 2;
+ctx.fillStyle = "#FF0";
+
+//creating snake of length 1 in the middle.
+ctx.fillRect(xpos, ypos, initialSnakeWidth, initialSnakeHeight);
+
+//Creating an Apple 
+// TO BE PLACED INSIDE A FUNCTION AND TRIGGERED IF SNAKE EATS IT.
+let appleWidth = 35;
+let appleHeight = 35;
+let randXPos = Math.floor(Math.random() * (window.innerWidth - appleWidth));
+let randYPos = Math.floor(Math.random() * (window.innerHeight - appleHeight));
+ctx.fillStyle = "#FF0F00";
+ctx.fillRect(randXPos, randYPos, appleWidth, appleHeight);
+
+
+// Page scrolls to canvas element on load... Works fine on Edge and chrome when tab closed and reopened but bugs out on refresh.
+window.addEventListener('load', () => {
+  canvas.scrollIntoView({behavior: "smooth", block: "start"})
+});
