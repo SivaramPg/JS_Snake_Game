@@ -9,7 +9,7 @@ const canvas = document.getElementById("myCanvas");
 canvas.width = window.innerWidth - 27;
 canvas.height = window.innerHeight;
 
-const ctx = myCanvas.getContext("2d");
+const ctx = canvas.getContext("2d");
 
 // Create gradient
 const  grd = ctx.createLinearGradient(0, 0, 200, 0);
