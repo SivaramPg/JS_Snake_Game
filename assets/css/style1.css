@@ -22,8 +22,6 @@ header  #heading {
 }
 
 #myCanvas {
-  width: 100%;
-  height: 93.5vh;
   border: 0.5rem dashed red;
 }
 

@@ -1,5 +1,15 @@
-const myCanvas = document.getElementById("myCanvas");
-const ctx = myCanvas.getContext("2d");
+const canvas = document.getElementById("myCanvas");
+
+//
+// ** For resizing the canvas depending on the window size.**
+//
+// canvas width manipulated to prevent horizontal scrolling and to compensate for the vertical scroll bar
+// In future if header and footer are removed then REMOVE THE SUBTRACTION OF 27 FROM THE canvas.width.
+
+canvas.width = window.innerWidth - 27;
+canvas.height = window.innerHeight;
+
+const ctx = canvas.getContext("2d");
 
 // Create gradient
 const  grd = ctx.createLinearGradient(0, 0, 200, 0);
