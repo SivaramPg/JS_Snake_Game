@@ -61,8 +61,10 @@ const generateApple = () => {
 
 //Triggers for initiation and restart
 const play = () => {
-  if(id)
+  if(id){ //For resize
     clearInterval(id);
+    score = 1;
+  }
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 	generateSnake();
 	generateApple();
@@ -89,7 +91,7 @@ const gameOverRun = () => {
 const checkBounds = () => {
   const x = currentPos.snakeX;
   const y = currentPos.snakeY;
-  if ( x<0 || x>canvas.width || y<0 || y>canvas.height) {
+  if ( x<0 || x>=canvas.width || y<0 || y>=canvas.height) {
     gameOverRun();
   }
 }
