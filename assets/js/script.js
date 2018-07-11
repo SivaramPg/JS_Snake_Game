@@ -52,12 +52,26 @@ const play = () => {
 	generateApple();
 }
 
-//After collision condition and escape
+const insideBounds = () => {
+  if (currentPos.snakeX !== 0 || currentPos.snakeX !== canvas.width || currentPos.snakeY !== 0 || currentPos.snakeY !== canvas.height) {
+
+  } else {
+    gameOverRun();
+  }
+}
+
+//After collision condition or escape
 const gameOverRun = () => {
   const playAgain = confirm('Game Over! Play Again?');  // check if user wants to play again, confirm returns either true or false on selection.
-  if (playAgain) {                                      // if yes then only clear canvas
+  if (playAgain) {                                      // if yes then only clear canvas & restart the game
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     play();
+  } else {
+    // Restart the game after 1 min of inactivity
+    setTimeout(() => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      play(); 
+    },10000)
   }
 } 
 
