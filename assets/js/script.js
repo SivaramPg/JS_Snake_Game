@@ -1,5 +1,11 @@
 const body = document.querySelector("body");
 const canvas = document.getElementById("myCanvas");
+const headerHeight = document.querySelector('header').offsetHeight;
+const footerHeight = document.querySelector('footer').offsetHeight;
+
+// creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
+const canvasElementsDim = 30;
+
 const ctx = canvas.getContext("2d");
 const currentPos = {
 	snakeX: '',
@@ -10,39 +16,50 @@ const currentPos = {
 
 // ** For resizing the canvas depending on the window size.**
 const setDisplay=()=>{
-	const headerHeight = document.querySelector('header').offsetHeight;
-	const footerHeight = document.querySelector('header').offsetHeight;
-	canvas.height = window.innerHeight -headerHeight -footerHeight;
+	canvas.height = window.innerHeight -headerHeight -footerHeight - 9;
 	canvas.width = window.innerWidth;
 }
-window.addEventListener('load', setDisplay);
-window.addEventListener('resize', setDisplay);
+
+//Dividing the canvas into pseudo grids.
+// Testing incrementing x and y pos of apple in increments of 30;
+
+// Number of X positions possible at intervals of 30: (0,30,60,90,.....)
+const xGridPositions = () => {
+  if (canvas.width / canvasElementsDim !== Math.floor(canvas.width / canvasElementsDim)) {    // Checking if the canvas width is exactly divisible by 30
+    xPositions = Math.floor(canvas.width / canvasElementsDim) - 1;             // If not then 30px box can't fit without overflow, we remove 1 position to make sure the box fits even if there is extra space at the right and bottom sides.
+                                                                // Ex: canvas width = 1545 then if condition becomes true since a box cannot fit in 15 px we have xGridPostions as 50 - 1 to accomodate the last box. 
+                                                                // The total usable canvas width now becomes 1530px;
+  } else {
+    xPositions = Math.floor(canvas.width / canvasElementsDim);
+  }
+  return xPositions;
+};
+// Number of Y positions possible at intervals of 30: (0, 30, 60, 90, ......)
+const yGridPositions = () => {
+  if (canvas.height / canvasElementsDim !== Math.floor(canvas.height / canvasElementsDim)) {   // Same concept as for xGridPostions.
+    yPositions = Math.floor(canvas.height / canvasElementsDim) - 1;
+  } else {
+    yPositions = Math.floor(canvas.height / canvasElementsDim);
+  }
+  return yPositions;
+};
 
 const generateSnake = () => {
-	const initialSnakeWidth = 30;
-	const initialSnakeHeight = 30;
-	const xPos = (window.innerWidth - initialSnakeWidth) / 2 ;
-	const yPos = (window.innerHeight - initialSnakeHeight) / 2;
+	const xPos = (canvas.width - canvasElementsDim) / 2 ;
+	const yPos = (canvas.height - canvasElementsDim) / 2;
 	ctx.fillStyle = "#FF0";
-	ctx.fillRect(xPos, yPos, initialSnakeWidth, initialSnakeHeight);
+	ctx.fillRect(xPos, yPos, canvasElementsDim, canvasElementsDim);
 	currentPos.snakeX = xPos;
 	currentPos.snakeY = yPos;
 }
 
 const generateApple = () => {
-	const appleWidth = 30;
-	const appleHeight = 30;
-	let randXPos, randYPos;
-	//Loop for checking if snake head exists at expected place for apple
-	//Realocate apple if true.
-	do {
-		randXPos = Math.floor(Math.random() * (window.innerWidth - appleWidth));
-		randYPos = Math.floor(Math.random() * (window.innerHeight - appleHeight));
-	}
-	while (randXPos===currentPos.snakeX && randYPos===currentPos.snakeY);
-
+	// Just track apple position outside this function and if condition matched then call the function again.
+  // don't check conditions here.
+	let randXPos = Math.floor(Math.random() * xGridPositions()) * 30;
+	let randYPos = Math.floor(Math.random() * yGridPositions()) * 30;
 	ctx.fillStyle = "#FF0F00";
-	ctx.fillRect(randXPos, randYPos, appleWidth, appleHeight);
+	ctx.fillRect(randXPos, randYPos, canvasElementsDim, canvasElementsDim);
 	currentPos.appleX = randXPos;
 	currentPos.appleY = randYPos;
 }
@@ -53,38 +70,61 @@ const play = () => {
 	generateSnake();
 	generateApple();
 }
+
+const insideBounds = () => {
+  if (currentPos.snakeX !== 0 || currentPos.snakeX !== (canvas.width - (canvas.width % canvasElementsDim))  || currentPos.snakeY !== 0 || currentPos.snakeY !== (canvas.height - (canvas.height % canvasElementsDim))) {
+    // Need to add or call the entire play code inside here so as to check if inside bounds on snake movement.
+  } else {
+    gameOverRun();
+  }
+}
+
+//After collision condition or escape
+const gameOverRun = () => {
+  const playAgain = confirm('Game Over! Play Again?');  // check if user wants to play again, confirm returns either true or false on selection.
+  if (playAgain) {                                      // if yes then only clear canvas & restart the game
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    play();
+  } else {
+    // Restart the game after 1 min of inactivity
+    setTimeout(() => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      play(); 
+    },10000)
+  }
+} 
+
+window.addEventListener('load', setDisplay);
 window.addEventListener('load', play);
+window.addEventListener('resize', setDisplay);
 
 // listening for arrow keys and escape to end the game.
 document.addEventListener("keydown", (event) => {
-	console.log(event.which);
-	var key = event.which || event.keyCode;
-  	switch(key) {
-	    case 37:
-	    	console.log('Left');
-			goLeft();
-			break;
-	    case 38:
-			console.log('Up');
-	      	goUp();
-	      	break;
-	    case 39:
-	    	console.log('Right');
-	      	goRight();
-	      	break;
-	    case 40:
-	    	console.log('Down');
-	      	goDown();
-	      	break;
-	    case 27:
-	      	gameOverRun();
-	      	break;
-   }
+  console.log(event.which);
+  let key = event.which || event.keyCode;
+  switch (key) {
+    case 37:
+      console.log('Left');
+      goLeft();
+      break;
+    case 38:
+      console.log('Up');
+      goUp();
+      break;
+    case 39:
+      console.log('Right');
+      goRight();
+      break;
+    case 40:
+      console.log('Down');
+      goDown();
+      break;
+    case 27:
+      console.log('Escape');
+      gameOverRun();
+      break;
+  }
 });
 
-//After collision condition and escape
-const gameOverRun = () => {
-	alert('Game Over! Play Again?');
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	play();
-} 
+
+
