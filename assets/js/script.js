@@ -11,7 +11,7 @@ const currentPos = {
 // ** For resizing the canvas depending on the window size.**
 const setDisplay=()=>{
 	const headerHeight = document.querySelector('header').offsetHeight;
-	const footerHeight = document.querySelector('header').offsetHeight;
+	const footerHeight = document.querySelector('footer').offsetHeight;
 	canvas.height = window.innerHeight -headerHeight -footerHeight;
 	canvas.width = window.innerWidth;
 }
@@ -21,8 +21,8 @@ window.addEventListener('resize', setDisplay);
 const generateSnake = () => {
 	const initialSnakeWidth = 30;
 	const initialSnakeHeight = 30;
-	const xPos = (window.innerWidth - initialSnakeWidth) / 2 ;
-	const yPos = (window.innerHeight - initialSnakeHeight) / 2;
+	const xPos = (canvas.width - initialSnakeWidth) / 2 ;
+	const yPos = (canvas.height - initialSnakeHeight) / 2;
 	ctx.fillStyle = "#FF0";
 	ctx.fillRect(xPos, yPos, initialSnakeWidth, initialSnakeHeight);
 	currentPos.snakeX = xPos;
@@ -36,8 +36,8 @@ const generateApple = () => {
 	//Loop for checking if snake head exists at expected place for apple
 	//Realocate apple if true.
 	do {
-		randXPos = Math.floor(Math.random() * (window.innerWidth - appleWidth));
-		randYPos = Math.floor(Math.random() * (window.innerHeight - appleHeight));
+		randXPos = Math.floor(Math.random() * (canvas.width - appleWidth));
+		randYPos = Math.floor(Math.random() * (canvas.height - appleHeight));
 	}
 	while (randXPos===currentPos.snakeX && randYPos===currentPos.snakeY);
 
