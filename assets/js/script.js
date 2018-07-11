@@ -119,5 +119,11 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+//test for checking no overlap of snake and apple
+
+const overlapCheck = () => {
+  
+}
+
 
 
