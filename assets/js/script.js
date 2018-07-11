@@ -5,7 +5,7 @@ const footerHeight = document.querySelector('footer').offsetHeight;
 
 // creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
 const canvasElementsDim = 30;
-let id;
+let id, score=1;
 //Can be used later to create gap b/w new snake blocks.
 //const sizeOfGrid = 30; 
 //const sizeOfObject = 28;
@@ -76,12 +76,13 @@ const gameOverRun = () => {
   clearInterval(id);
   speed.x=0;
   speed.y=0;
-  const playAgain = confirm('Game Over! Play Again?');  // check if user wants to play again, confirm returns either true or false on selection.
-  if (playAgain) {                                      // if yes then only clear canvas & restart the game    
+  const playAgain = confirm(`Game Over! Your score is ${score}! Play Again?`);  // check if user wants to play again, confirm returns either true or false on selection.
+  if (playAgain) {  
+    score=1;                                    // if yes then only clear canvas & restart the game    
     play();
   }
   else {
-    prompt('Thanks for playing');
+    alert('Thanks for playing');
   }
 } 
 
@@ -105,7 +106,7 @@ const checkAndUpdatePosition = () =>{
 }
 
 const updateScore = () =>{
-
+  score+=5;
 }
 
 const updateSnake = () =>{
