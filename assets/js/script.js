@@ -82,8 +82,7 @@ const insideBounds = () => {
 const gameOverRun = () => {
   clearInterval(interval);
   const playAgain = confirm('Game Over! Play Again?');  // check if user wants to play again, confirm returns either true or false on selection.
-  if (playAgain) {                                      // if yes then only clear canvas & restart the game
-    
+  if (playAgain) {                                      // if yes then only clear canvas & restart the game    
     play();
   } else {
     // Restart the game after 1 min of inactivity
@@ -95,8 +94,13 @@ const gameOverRun = () => {
 } 
 
 const update =() =>{
-  // ctx.clearRect(currentPos.snakeX, currentPos.snakeY, canvasElementsDim,canvasElementsDim);
-
+  if(speed.x || speed.y){
+  ctx.clearRect(currentPos.snakeX, currentPos.snakeY, canvasElementsDim,canvasElementsDim);
+  currentPos.snakeX += speed.x;
+  currentPos.snakeY += speed.y;
+  ctx.fillStyle = '#FF0';
+  ctx.fillRect(currentPos.snakeX, currentPos.snakeY, canvasElementsDim, canvasElementsDim);
+}
 }
 
 //Functions for movement
