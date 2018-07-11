@@ -89,7 +89,7 @@ const checkBounds = () => {
   const x = currentPos.snakeX;
   const y = currentPos.snakeY;
   //If outside, gameOverRun();
-  if ( x<0 || x>canvas.width || y<0 || y>canvas.height){
+  if ( x<0 || x>canvas.width - (canvas.width % 30 + 30) || y<0 || y>canvas.height - (canvas.height % 30 + 30)){
     gameOverRun();
   }
 }
