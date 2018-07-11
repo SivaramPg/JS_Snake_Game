@@ -27,8 +27,8 @@ const setDisplay=()=>{
 const xGridPositions = () => {
   if (canvas.width / canvasElementsDim !== Math.floor(canvas.width / canvasElementsDim)) {    // Checking if the canvas width is exactly divisible by 30
     xPositions = Math.floor(canvas.width / canvasElementsDim) - 1;             // If not then 30px box can't fit without overflow, we remove 1 position to make sure the box fits even if there is extra space at the right and bottom sides.
-                                                                // Ex: canvas width = 1545 then if condition becomes true since a box cannot fit in 15 px we have xGridPostions as 50 - 1 to accomodate the last box. 
-                                                                // The total usable canvas width now becomes 1530px;
+    // Ex: canvas width = 1545 then if condition becomes true since a box cannot fit in 15 px we have xGridPostions as 50 - 1 to accomodate the last box. 
+    // The total usable canvas width now becomes 1530px;
   } else {
     xPositions = Math.floor(canvas.width / canvasElementsDim);
   }
@@ -100,7 +100,6 @@ window.addEventListener('resize', setDisplay);
 
 // listening for arrow keys and escape to end the game.
 document.addEventListener("keydown", (event) => {
-  console.log(event.which);
   let key = event.which || event.keyCode;
   switch (key) {
     case 37:
