@@ -17,51 +17,43 @@ const currentPos = {
 // ** For resizing the canvas depending on the window size.**
 const setDisplay=()=>{
 	canvas.height = window.innerHeight -headerHeight -footerHeight - 9;
-	canvas.width = window.innerWidth;
+  canvas.width = window.innerWidth;
 }
 
 //Dividing the canvas into pseudo grids.
-// Testing incrementing x and y pos of apple in increments of 30;
 
 // Number of X positions possible at intervals of 30: (0,30,60,90,.....)
 const xGridPositions = () => {
-  if (canvas.width / canvasElementsDim !== Math.floor(canvas.width / canvasElementsDim)) {    // Checking if the canvas width is exactly divisible by 30
-    xPositions = Math.floor(canvas.width / canvasElementsDim) - 1;             // If not then 30px box can't fit without overflow, we remove 1 position to make sure the box fits even if there is extra space at the right and bottom sides.
-                                                                // Ex: canvas width = 1545 then if condition becomes true since a box cannot fit in 15 px we have xGridPostions as 50 - 1 to accomodate the last box. 
-                                                                // The total usable canvas width now becomes 1530px;
-  } else {
-    xPositions = Math.floor(canvas.width / canvasElementsDim);
-  }
-  return xPositions;
+  return xPositions = Math.floor(canvas.width / canvasElementsDim) - 1;
 };
+
 // Number of Y positions possible at intervals of 30: (0, 30, 60, 90, ......)
 const yGridPositions = () => {
-  if (canvas.height / canvasElementsDim !== Math.floor(canvas.height / canvasElementsDim)) {   // Same concept as for xGridPostions.
-    yPositions = Math.floor(canvas.height / canvasElementsDim) - 1;
-  } else {
-    yPositions = Math.floor(canvas.height / canvasElementsDim);
-  }
-  return yPositions;
+  return yPositions = Math.floor(canvas.height / canvasElementsDim) - 1;
 };
 
 const generateSnake = () => {
-	const xPos = (canvas.width - canvasElementsDim) / 2 ;
-	const yPos = (canvas.height - canvasElementsDim) / 2;
+	// const xPos = (canvas.width - canvasElementsDim) / 2 ;
+  // const yPos = (canvas.height - canvasElementsDim) / 2;
+  let xPos = Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
+	let yPos = Math.floor(Math.random() * yGridPositions()) * canvasElementsDim;
 	ctx.fillStyle = "#FF0";
 	ctx.fillRect(xPos, yPos, canvasElementsDim, canvasElementsDim);
 	currentPos.snakeX = xPos;
-	currentPos.snakeY = yPos;
+  currentPos.snakeY = yPos;
+  console.log(xPos, yPos);
 }
 
 const generateApple = () => {
 	// Just track apple position outside this function and if condition matched then call the function again.
   // don't check conditions here.
-	let randXPos = Math.floor(Math.random() * xGridPositions()) * 30;
-	let randYPos = Math.floor(Math.random() * yGridPositions()) * 30;
+	let randXPos = Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
+	let randYPos = Math.floor(Math.random() * yGridPositions()) * canvasElementsDim;
 	ctx.fillStyle = "#FF0F00";
 	ctx.fillRect(randXPos, randYPos, canvasElementsDim, canvasElementsDim);
 	currentPos.appleX = randXPos;
-	currentPos.appleY = randYPos;
+  currentPos.appleY = randYPos;
+  console.log(randXPos, randYPos);
 }
 
 //Triggers for initiation and restart
@@ -96,6 +88,7 @@ const gameOverRun = () => {
 
 window.addEventListener('load', setDisplay);
 window.addEventListener('load', play);
+window.addEventListener('resize', play);
 window.addEventListener('resize', setDisplay);
 
 // listening for arrow keys and escape to end the game.
