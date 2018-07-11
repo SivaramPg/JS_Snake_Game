@@ -16,6 +16,30 @@ const setDisplay=()=>{
 	canvas.width = window.innerWidth;
 }
 
+//Dividing the canvas into pseudo grids.
+// Testing incrementing x and y pos of apple in increments of 30;
+
+// Number of X positions possible at intervals of 30: (0,30,60,90,.....)
+const xGridPositions = () => {
+  if (canvas.width / 30 !== Math.floor(canvas.width / 30)) {    // Checking if the canvas width is exactly divisible by 30
+    xPositions = Math.floor(canvas.width / 30) - 1;             // If not then 30px box can't fit without overflow, we remove 1 position to make sure the box fits even if there is extra space at the right and bottom sides.
+                                                                // Ex: canvas width = 1545 then if condition becomes true since a box cannot fit in 15 px we have xGridPostions as 50 - 1 to accomodate the last box. 
+                                                                // The total usable canvas width now becomes 1530px;
+  } else {
+    xPositions = Math.floor(canvas.width / 30);
+  }
+  return xPositions;
+};
+// Number of Y positions possible at intervals of 30: (0, 30, 60, 90, ......)
+const yGridPositions = () => {
+  if (canvas.height / 30 !== Math.floor(canvas.height / 30)) {   // Same concept as for xGridPostions.
+    yPositions = Math.floor(canvas.height / 30) - 1;
+  } else {
+    yPositions = Math.floor(canvas.height / 30);
+  }
+  return yPositions;
+};
+
 const generateSnake = () => {
 	const initialSnakeWidth = 30;
 	const initialSnakeHeight = 30;
@@ -30,15 +54,10 @@ const generateSnake = () => {
 const generateApple = () => {
 	const appleWidth = 30;
 	const appleHeight = 30;
-	let randXPos, randYPos;
-	//Loop for checking if snake head exists at expected place for apple
-	//Realocate apple if true.
-	do {
-		randXPos = Math.floor(Math.random() * (canvas.width - appleWidth));
-		randYPos = Math.floor(Math.random() * (canvas.height - appleHeight));
-	}
-	while (randXPos===currentPos.snakeX && randYPos===currentPos.snakeY);
-
+	// Just track apple position outside this function and if condition matched then call the function again.
+  // don't check conditions here.
+	let randXPos = Math.floor(Math.random() * xGridPositions()) * 30;
+	let randYPos = Math.floor(Math.random() * yGridPositions()) * 30;
 	ctx.fillStyle = "#FF0F00";
 	ctx.fillRect(randXPos, randYPos, appleWidth, appleHeight);
 	currentPos.appleX = randXPos;
@@ -106,3 +125,6 @@ document.addEventListener("keydown", (event) => {
       break;
   }
 });
+
+
+
