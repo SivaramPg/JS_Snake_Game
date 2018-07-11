@@ -23,20 +23,23 @@ const speed ={
 }
 // ** For resizing the canvas depending on the window size.**
 const setDisplay=()=>{
-	canvas.height = window.innerHeight -headerHeight -footerHeight - 9;
+	canvas.height = (window.innerHeight -headerHeight -footerHeight) ;
   canvas.width = window.innerWidth;
+  canvas.height -= canvas.height % canvasElementsDim;
+  canvas.width -= canvas.width % canvasElementsDim;
+
 }
 
 //Dividing the canvas into pseudo grids.
 
 // Number of X positions possible at intervals of 30: (0,30,60,90,.....)
 const xGridPositions = () => {
-  return xPositions = Math.floor(canvas.width / canvasElementsDim) - 1;
+  return xPositions = Math.floor(canvas.width / canvasElementsDim);
 };
 
 // Number of Y positions possible at intervals of 30: (0, 30, 60, 90, ......)
 const yGridPositions = () => {
-  return yPositions = Math.floor(canvas.height / canvasElementsDim) - 1;
+  return yPositions = Math.floor(canvas.height / canvasElementsDim);
 };
 
 const generateSnake = () => {
@@ -89,7 +92,7 @@ const checkBounds = () => {
   const x = currentPos.snakeX;
   const y = currentPos.snakeY;
   //If outside, gameOverRun();
-  if ( x<0 || x>canvas.width - (canvas.width % 30 + 30) || y<0 || y>canvas.height - (canvas.height % 30 + 30)){
+  if ( x<0 || x>canvas.width || y<0 || y>canvas.height) {
     gameOverRun();
   }
 }
