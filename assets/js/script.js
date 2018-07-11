@@ -53,14 +53,17 @@ const generateApple = () => {
 	ctx.fillRect(randXPos, randYPos, canvasElementsDim, canvasElementsDim);
 	currentPos.appleX = randXPos;
   currentPos.appleY = randYPos;
-  console.log(randXPos, randYPos);
 }
 
 //Triggers for initiation and restart
 const play = () => {
-	console.log('Play');
-	generateSnake();
-	generateApple();
+  console.log('Play');
+  do {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    generateSnake();
+    generateApple();
+  }
+  while(currentPos.snakeX === currentPos.appleX || currentPos.snakeX === currentPos.appleY);
 }
 
 const insideBounds = () => {
