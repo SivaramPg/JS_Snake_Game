@@ -22,9 +22,12 @@ header  #heading {
 }
 
 #myCanvas {
-  /* keep width here so the app does not start scrolling vertically and overflows behind the vertical scroll bar */
+  /* keep width here so the app does not start scrolling vertically and overflows behind the vertical scroll bar 
+  Changing height to 100% always displays footer and header
+   */
   width: 100%;
-  border: 0.5rem dashed red;
+  height: 100%;
+  border: 0.6rem dashed red;
 }
 
 footer {
