@@ -6,6 +6,10 @@ const footerHeight = document.querySelector('footer').offsetHeight;
 // creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
 const canvasElementsDim = 30;
 
+//Can be used later to create gap b/w new snake blocks.
+//const sizeOfGrid = 30; 
+//const sizeOfObject = 28;
+
 const ctx = canvas.getContext("2d");
 const currentPos = {
 	snakeX: '',
@@ -13,7 +17,10 @@ const currentPos = {
 	appleX: '',
 	appleY: '',
 }
-
+const speed ={
+  x: 0,
+  y: 0,
+}
 // ** For resizing the canvas depending on the window size.**
 const setDisplay=()=>{
 	canvas.height = window.innerHeight -headerHeight -footerHeight - 9;
@@ -41,7 +48,6 @@ const generateSnake = () => {
 	ctx.fillRect(xPos, yPos, canvasElementsDim, canvasElementsDim);
 	currentPos.snakeX = xPos;
   currentPos.snakeY = yPos;
-  console.log(xPos, yPos);
 }
 
 const generateApple = () => {
@@ -53,14 +59,15 @@ const generateApple = () => {
 	ctx.fillRect(randXPos, randYPos, canvasElementsDim, canvasElementsDim);
 	currentPos.appleX = randXPos;
   currentPos.appleY = randYPos;
-  console.log(randXPos, randYPos);
 }
 
 //Triggers for initiation and restart
 const play = () => {
-	console.log('Play');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 	generateSnake();
 	generateApple();
+  console.log(currentPos);
+  const interval = setInterval(update, 20);
 }
 
 const insideBounds = () => {
@@ -73,9 +80,10 @@ const insideBounds = () => {
 
 //After collision condition or escape
 const gameOverRun = () => {
+  clearInterval(interval);
   const playAgain = confirm('Game Over! Play Again?');  // check if user wants to play again, confirm returns either true or false on selection.
   if (playAgain) {                                      // if yes then only clear canvas & restart the game
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
     play();
   } else {
     // Restart the game after 1 min of inactivity
@@ -86,30 +94,53 @@ const gameOverRun = () => {
   }
 } 
 
+const update =() =>{
+  // ctx.clearRect(currentPos.snakeX, currentPos.snakeY, canvasElementsDim,canvasElementsDim);
+
+}
+
+//Functions for movement
+const moveUp = () => {
+  speed.y = -30;
+  speed.x= 0;
+}
+const moveDown = () => {
+  speed.y = 30;
+  speed.x= 0;  
+}
+const moveLeft = () => {
+  speed.y = 0;
+  speed.x= -30;  
+}
+const moveRight = () => {
+  speed.y = 0;
+  speed.x= 30;  
+}
+//Event Listeners
+
 window.addEventListener('load', setDisplay);
 window.addEventListener('load', play);
-window.addEventListener('resize', play);
 window.addEventListener('resize', setDisplay);
+window.addEventListener('resize', play);
 
-// listening for arrow keys and escape to end the game.
 document.addEventListener("keydown", (event) => {
   let key = event.which || event.keyCode;
   switch (key) {
     case 37:
       console.log('Left');
-      goLeft();
+      moveLeft();
       break;
     case 38:
       console.log('Up');
-      goUp();
+      moveUp();
       break;
     case 39:
       console.log('Right');
-      goRight();
+      moveRight();
       break;
     case 40:
       console.log('Down');
-      goDown();
+      moveDown();
       break;
     case 27:
       console.log('Escape');
