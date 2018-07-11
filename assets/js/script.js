@@ -6,6 +6,10 @@ const footerHeight = document.querySelector('footer').offsetHeight;
 // creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
 const canvasElementsDim = 30;
 
+//Can be used later to create gap b/w new snake blocks.
+//const sizeOfGrid = 30; 
+//const sizeOfObject = 28;
+
 const ctx = canvas.getContext("2d");
 const currentPos = {
 	snakeX: '',
@@ -13,7 +17,10 @@ const currentPos = {
 	appleX: '',
 	appleY: '',
 }
-
+const speed ={
+  x: 0,
+  y: 0,
+}
 // ** For resizing the canvas depending on the window size.**
 const setDisplay=()=>{
 	canvas.height = window.innerHeight -headerHeight -footerHeight - 9;
@@ -41,7 +48,6 @@ const generateSnake = () => {
 	ctx.fillRect(xPos, yPos, canvasElementsDim, canvasElementsDim);
 	currentPos.snakeX = xPos;
   currentPos.snakeY = yPos;
-  console.log(xPos, yPos);
 }
 
 const generateApple = () => {
@@ -53,64 +59,114 @@ const generateApple = () => {
 	ctx.fillRect(randXPos, randYPos, canvasElementsDim, canvasElementsDim);
 	currentPos.appleX = randXPos;
   currentPos.appleY = randYPos;
-  console.log(randXPos, randYPos);
 }
 
 //Triggers for initiation and restart
 const play = () => {
-	console.log('Play');
+  // closeInterval(interval);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 	generateSnake();
 	generateApple();
-}
-
-const insideBounds = () => {
-  if (currentPos.snakeX !== 0 || currentPos.snakeX !== (canvas.width - (canvas.width % canvasElementsDim))  || currentPos.snakeY !== 0 || currentPos.snakeY !== (canvas.height - (canvas.height % canvasElementsDim))) {
-    // Need to add or call the entire play code inside here so as to check if inside bounds on snake movement.
-  } else {
-    gameOverRun();
-  }
+  console.log(currentPos);
+  const interval = setInterval(update, 100);
 }
 
 //After collision condition or escape
 const gameOverRun = () => {
+  clearInterval(play.interval);
+  speed.x=0;
+  speed.y=0;
   const playAgain = confirm('Game Over! Play Again?');  // check if user wants to play again, confirm returns either true or false on selection.
-  if (playAgain) {                                      // if yes then only clear canvas & restart the game
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (playAgain) {                                      // if yes then only clear canvas & restart the game    
     play();
-  } else {
-    // Restart the game after 1 min of inactivity
-    setTimeout(() => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      play(); 
-    },10000)
+  }
+  else {
+    prompt('Thanks for playing');
   }
 } 
 
+const checkBounds = () => {
+  const x = currentPos.snakeX;
+  const y = currentPos.snakeY;
+  //If outside, gameOverRun();
+  if ( x<0 || x>canvas.width || y<0 || y>canvas.height){
+    gameOverRun();
+  }
+}
+
+const checkAndUpdatePosition = () =>{
+  if(speed.x || speed.y){
+    ctx.clearRect(currentPos.snakeX, currentPos.snakeY, canvasElementsDim,canvasElementsDim);
+    currentPos.snakeX += speed.x;
+    currentPos.snakeY += speed.y;
+    ctx.fillStyle = '#FF0';
+    ctx.fillRect(currentPos.snakeX, currentPos.snakeY, canvasElementsDim, canvasElementsDim);
+  }
+}
+
+const updateScore = () =>{
+
+}
+
+const updateSnake = () =>{
+
+}
+
+const checkAndUpdateApple = () =>{
+  if(currentPos.snakeX === currentPos.appleX && currentPos.snakeY === currentPos.appleY){
+    updateScore();
+    updateSnake();    
+    generateApple();
+  }
+}
+//Runs continously, updates and checks
+const update =() =>{
+  checkAndUpdatePosition();
+  checkAndUpdateApple();
+  checkBounds();
+}
+//Functions for movement
+const moveUp = () => {
+  speed.y = -30;
+  speed.x= 0;
+}
+const moveDown = () => {
+  speed.y = 30;
+  speed.x= 0;  
+}
+const moveLeft = () => {
+  speed.y = 0;
+  speed.x= -30;  
+}
+const moveRight = () => {
+  speed.y = 0;
+  speed.x= 30;  
+}
+//Event Listeners
+
 window.addEventListener('load', setDisplay);
 window.addEventListener('load', play);
-window.addEventListener('resize', play);
 window.addEventListener('resize', setDisplay);
+window.addEventListener('resize', play);
 
-// listening for arrow keys and escape to end the game.
 document.addEventListener("keydown", (event) => {
-  console.log(event.which);
   let key = event.which || event.keyCode;
   switch (key) {
     case 37:
       console.log('Left');
-      goLeft();
+      moveLeft();
       break;
     case 38:
       console.log('Up');
-      goUp();
+      moveUp();
       break;
     case 39:
       console.log('Right');
-      goRight();
+      moveRight();
       break;
     case 40:
       console.log('Down');
-      goDown();
+      moveDown();
       break;
     case 27:
       console.log('Escape');
