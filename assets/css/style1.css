@@ -17,7 +17,7 @@ header  #heading {
   font-size: 2rem;
   text-align: center;
   padding: 1rem;
-  height: auto;
+  height: 4rem;
   width: auto;
   background: dodgerblue;
 }
@@ -34,7 +34,7 @@ header  #heading {
 footer {
   background-color: black;
   padding: 1rem;
-  height: auto;
+  height: 4rem;
   width: auto;
 }
 
