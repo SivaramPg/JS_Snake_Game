@@ -70,14 +70,6 @@ const play = () => {
   const interval = setInterval(update, 20);
 }
 
-const insideBounds = () => {
-  if (currentPos.snakeX !== 0 || currentPos.snakeX !== (canvas.width - (canvas.width % canvasElementsDim))  || currentPos.snakeY !== 0 || currentPos.snakeY !== (canvas.height - (canvas.height % canvasElementsDim))) {
-    // Need to add or call the entire play code inside here so as to check if inside bounds on snake movement.
-  } else {
-    gameOverRun();
-  }
-}
-
 //After collision condition or escape
 const gameOverRun = () => {
   clearInterval(interval);
@@ -93,16 +85,32 @@ const gameOverRun = () => {
   }
 } 
 
-const update =() =>{
-  if(speed.x || speed.y){
-  ctx.clearRect(currentPos.snakeX, currentPos.snakeY, canvasElementsDim,canvasElementsDim);
-  currentPos.snakeX += speed.x;
-  currentPos.snakeY += speed.y;
-  ctx.fillStyle = '#FF0';
-  ctx.fillRect(currentPos.snakeX, currentPos.snakeY, canvasElementsDim, canvasElementsDim);
-}
+const checkBounds = () => {
+  //If outside, gameOverRun();
+  if (false){
+    gameOverRun();
+  }
 }
 
+const checkAndUpdatePosition = () =>{
+  if(speed.x || speed.y){
+    ctx.clearRect(currentPos.snakeX, currentPos.snakeY, canvasElementsDim,canvasElementsDim);
+    currentPos.snakeX += speed.x;
+    currentPos.snakeY += speed.y;
+    ctx.fillStyle = '#FF0';
+    ctx.fillRect(currentPos.snakeX, currentPos.snakeY, canvasElementsDim, canvasElementsDim);
+  }
+}
+const checkAndUpdateApple = () =>{
+  if(currentPos.snakeX === currentPos.appleX && currentPos.snakeY === currentPos.appleY)
+    generateApple();
+}
+//Runs continously, updates and checks
+const update =() =>{
+  checkAndUpdatePosition();
+  checkAndUpdateApple();
+  checkBounds();
+}
 //Functions for movement
 const moveUp = () => {
   speed.y = -30;
