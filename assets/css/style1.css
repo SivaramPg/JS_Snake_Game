@@ -9,6 +9,7 @@ body, html {
   /* For use with 'rem' 1rem = 16px and setting font size to this value makes 1rem = 10px making it easier to calculate. */
   font-size: 62.5%;
   font-family: 'Fira Sans','Open Sans', sans-serif, 'Courier New', monospace; 
+  overflow: hidden;
 }
 
 header  #heading {
@@ -33,6 +34,8 @@ header  #heading {
 footer {
   background-color: black;
   padding: 1rem;
+  height: auto;
+  width: auto;
 }
 
 footer .footerElements {

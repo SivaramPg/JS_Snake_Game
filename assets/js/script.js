@@ -12,7 +12,7 @@ const currentPos = {
 
 // ** For resizing the canvas depending on the window size.**
 const setDisplay=()=>{
-	canvas.height = window.innerHeight -headerHeight -footerHeight;
+	canvas.height = window.innerHeight -headerHeight -footerHeight - 9;
 	canvas.width = window.innerWidth;
 }
 
@@ -54,7 +54,7 @@ const play = () => {
 
 const insideBounds = () => {
   if (currentPos.snakeX !== 0 || currentPos.snakeX !== canvas.width || currentPos.snakeY !== 0 || currentPos.snakeY !== canvas.height) {
-
+    // Need to add or call the entire play code inside here so as to check if inside bounds on snake movement.
   } else {
     gameOverRun();
   }
@@ -101,6 +101,7 @@ document.addEventListener("keydown", (event) => {
       goDown();
       break;
     case 27:
+      console.log('Escape');
       gameOverRun();
       break;
   }
