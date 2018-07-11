@@ -1,5 +1,7 @@
 const body = document.querySelector("body");
 const canvas = document.getElementById("myCanvas");
+const headerHeight = document.querySelector('header').offsetHeight;
+const footerHeight = document.querySelector('footer').offsetHeight;
 const ctx = canvas.getContext("2d");
 const currentPos = {
 	snakeX: '',
@@ -10,13 +12,9 @@ const currentPos = {
 
 // ** For resizing the canvas depending on the window size.**
 const setDisplay=()=>{
-	const headerHeight = document.querySelector('header').offsetHeight;
-	const footerHeight = document.querySelector('footer').offsetHeight;
 	canvas.height = window.innerHeight -headerHeight -footerHeight;
 	canvas.width = window.innerWidth;
 }
-window.addEventListener('load', setDisplay);
-window.addEventListener('resize', setDisplay);
 
 const generateSnake = () => {
 	const initialSnakeWidth = 30;
@@ -53,38 +51,43 @@ const play = () => {
 	generateSnake();
 	generateApple();
 }
-window.addEventListener('load', play);
-
-// listening for arrow keys and escape to end the game.
-document.addEventListener("keydown", (event) => {
-	console.log(event.which);
-	var key = event.which || event.keyCode;
-  	switch(key) {
-	    case 37:
-	    	console.log('Left');
-			goLeft();
-			break;
-	    case 38:
-			console.log('Up');
-	      	goUp();
-	      	break;
-	    case 39:
-	    	console.log('Right');
-	      	goRight();
-	      	break;
-	    case 40:
-	    	console.log('Down');
-	      	goDown();
-	      	break;
-	    case 27:
-	      	gameOverRun();
-	      	break;
-   }
-});
 
 //After collision condition and escape
 const gameOverRun = () => {
-	alert('Game Over! Play Again?');
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	play();
+  const playAgain = confirm('Game Over! Play Again?');  // check if user wants to play again, confirm returns either true or false on selection.
+  if (playAgain) {                                      // if yes then only clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    play();
+  }
 } 
+
+window.addEventListener('load', setDisplay);
+window.addEventListener('load', play);
+window.addEventListener('resize', setDisplay);
+
+// listening for arrow keys and escape to end the game.
+document.addEventListener("keydown", (event) => {
+  console.log(event.which);
+  var key = event.which || event.keyCode;
+  switch (key) {
+    case 37:
+      console.log('Left');
+      goLeft();
+      break;
+    case 38:
+      console.log('Up');
+      goUp();
+      break;
+    case 39:
+      console.log('Right');
+      goRight();
+      break;
+    case 40:
+      console.log('Down');
+      goDown();
+      break;
+    case 27:
+      gameOverRun();
+      break;
+  }
+});
