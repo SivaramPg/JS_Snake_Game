@@ -5,7 +5,7 @@ const footerHeight = document.querySelector('footer').offsetHeight;
 
 // creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
 const canvasElementsDim = 30;
-let id, score=1;
+let id=0, score=1;
 //Can be used later to create gap b/w new snake blocks.
 //const sizeOfGrid = 30; 
 //const sizeOfObject = 28;
@@ -25,6 +25,7 @@ const speed ={
 const setDisplay=()=>{
 	canvas.height = window.innerHeight -headerHeight -footerHeight - 9;
   canvas.width = window.innerWidth;
+  id=0;
 }
 
 //Dividing the canvas into pseudo grids.
@@ -40,8 +41,6 @@ const yGridPositions = () => {
 };
 
 const generateSnake = () => {
-	// const xPos = (canvas.width - canvasElementsDim) / 2 ;
-  // const yPos = (canvas.height - canvasElementsDim) / 2;
   let xPos = Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
 	let yPos = Math.floor(Math.random() * yGridPositions()) * canvasElementsDim;
 	ctx.fillStyle = "#FF0";
@@ -51,8 +50,6 @@ const generateSnake = () => {
 }
 
 const generateApple = () => {
-	// Just track apple position outside this function and if condition matched then call the function again.
-  // don't check conditions here.
 	let randXPos = Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
 	let randYPos = Math.floor(Math.random() * yGridPositions()) * canvasElementsDim;
 	ctx.fillStyle = "#FF0F00";
@@ -63,7 +60,8 @@ const generateApple = () => {
 
 //Triggers for initiation and restart
 const play = () => {
-  // closeInterval(interval);
+  if(id)
+    clearInterval(id);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 	generateSnake();
 	generateApple();
@@ -74,6 +72,7 @@ const play = () => {
 //After collision conditione or escape
 const gameOverRun = () => {
   clearInterval(id);
+  id=0;
   speed.x=0;
   speed.y=0;
   const playAgain = confirm(`Game Over! Your score is ${score}! Play Again?`);  // check if user wants to play again, confirm returns either true or false on selection.
@@ -89,7 +88,6 @@ const gameOverRun = () => {
 const checkBounds = () => {
   const x = currentPos.snakeX;
   const y = currentPos.snakeY;
-  //If outside, gameOverRun();
   if ( x<0 || x>canvas.width || y<0 || y>canvas.height){
     gameOverRun();
   }
