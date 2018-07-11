@@ -101,7 +101,7 @@ window.addEventListener('resize', setDisplay);
 // listening for arrow keys and escape to end the game.
 document.addEventListener("keydown", (event) => {
   console.log(event.which);
-  var key = event.which || event.keyCode;
+  let key = event.which || event.keyCode;
   switch (key) {
     case 37:
       console.log('Left');
