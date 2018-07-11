@@ -63,31 +63,33 @@ const generateApple = () => {
 
 //Triggers for initiation and restart
 const play = () => {
+  // closeInterval(interval);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 	generateSnake();
 	generateApple();
   console.log(currentPos);
-  const interval = setInterval(update, 20);
+  const interval = setInterval(update, 100);
 }
 
 //After collision condition or escape
 const gameOverRun = () => {
-  clearInterval(interval);
+  clearInterval(play.interval);
+  speed.x=0;
+  speed.y=0;
   const playAgain = confirm('Game Over! Play Again?');  // check if user wants to play again, confirm returns either true or false on selection.
   if (playAgain) {                                      // if yes then only clear canvas & restart the game    
     play();
-  } else {
-    // Restart the game after 1 min of inactivity
-    setTimeout(() => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      play(); 
-    },10000)
+  }
+  else {
+    prompt('Thanks for playing');
   }
 } 
 
 const checkBounds = () => {
+  const x = currentPos.snakeX;
+  const y = currentPos.snakeY;
   //If outside, gameOverRun();
-  if (false){
+  if ( x<0 || x>canvas.width || y<0 || y>canvas.height){
     gameOverRun();
   }
 }
@@ -101,9 +103,21 @@ const checkAndUpdatePosition = () =>{
     ctx.fillRect(currentPos.snakeX, currentPos.snakeY, canvasElementsDim, canvasElementsDim);
   }
 }
+
+const updateScore = () =>{
+
+}
+
+const updateSnake = () =>{
+
+}
+
 const checkAndUpdateApple = () =>{
-  if(currentPos.snakeX === currentPos.appleX && currentPos.snakeY === currentPos.appleY)
+  if(currentPos.snakeX === currentPos.appleX && currentPos.snakeY === currentPos.appleY){
+    updateScore();
+    updateSnake();    
     generateApple();
+  }
 }
 //Runs continously, updates and checks
 const update =() =>{
