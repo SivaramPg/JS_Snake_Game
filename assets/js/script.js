@@ -5,7 +5,7 @@ const footerHeight = document.querySelector('footer').offsetHeight;
 
 // creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
 const canvasElementsDim = 30;
-let id;
+let id=0, score=1;
 //Can be used later to create gap b/w new snake blocks.
 //const sizeOfGrid = 30; 
 //const sizeOfObject = 28;
@@ -27,7 +27,6 @@ const setDisplay=()=>{
   canvas.width = window.innerWidth;
   canvas.height -= canvas.height % canvasElementsDim;
   canvas.width -= canvas.width % canvasElementsDim;
-
 }
 
 //Dividing the canvas into pseudo grids.
@@ -43,8 +42,6 @@ const yGridPositions = () => {
 };
 
 const generateSnake = () => {
-	// const xPos = (canvas.width - canvasElementsDim) / 2 ;
-  // const yPos = (canvas.height - canvasElementsDim) / 2;
   let xPos = Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
 	let yPos = Math.floor(Math.random() * yGridPositions()) * canvasElementsDim;
 	ctx.fillStyle = "#FF0";
@@ -54,8 +51,6 @@ const generateSnake = () => {
 }
 
 const generateApple = () => {
-	// Just track apple position outside this function and if condition matched then call the function again.
-  // don't check conditions here.
 	let randXPos = Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
 	let randYPos = Math.floor(Math.random() * yGridPositions()) * canvasElementsDim;
 	ctx.fillStyle = "#FF0F00";
@@ -66,7 +61,10 @@ const generateApple = () => {
 
 //Triggers for initiation and restart
 const play = () => {
-  // closeInterval(interval);
+  if(id){ //For resize
+    clearInterval(id);
+    score = 1;
+  }
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 	generateSnake();
 	generateApple();
@@ -77,22 +75,23 @@ const play = () => {
 //After collision conditione or escape
 const gameOverRun = () => {
   clearInterval(id);
+  id=0;
   speed.x=0;
   speed.y=0;
-  const playAgain = confirm('Game Over! Play Again?');  // check if user wants to play again, confirm returns either true or false on selection.
-  if (playAgain) {                                      // if yes then only clear canvas & restart the game    
+  const playAgain = confirm(`Game Over! Your score is ${score}! Play Again?`);  // check if user wants to play again, confirm returns either true or false on selection.
+  if (playAgain) {  
+    score=1;                                    // if yes then only clear canvas & restart the game    
     play();
   }
   else {
-    prompt('Thanks for playing');
+    alert('Thanks for playing');
   }
 } 
 
 const checkBounds = () => {
   const x = currentPos.snakeX;
   const y = currentPos.snakeY;
-  //If outside, gameOverRun();
-  if ( x<0 || x>canvas.width || y<0 || y>canvas.height) {
+  if ( x<0 || x>=canvas.width || y<0 || y>=canvas.height) {
     gameOverRun();
   }
 }
@@ -108,7 +107,7 @@ const checkAndUpdatePosition = () =>{
 }
 
 const updateScore = () =>{
-
+  score+=5;
 }
 
 const updateSnake = () =>{
