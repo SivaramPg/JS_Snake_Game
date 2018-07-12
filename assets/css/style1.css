@@ -5,14 +5,15 @@
   box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
   /* For use with 'rem' 1rem = 16px and setting font size to this value makes 1rem = 10px making it easier to calculate. */
   font-size: 62.5%;
-  font-family: 'Fira Sans','Open Sans', sans-serif, 'Courier New', monospace; 
+  font-family: "Fira Sans", "Open Sans", sans-serif, "Courier New", monospace;
   overflow: hidden;
 }
 
-header  #heading {
+header #heading {
   /* margin: auto 50%; */
   font-size: 2rem;
   text-align: center;
@@ -28,7 +29,7 @@ header  #heading {
    */
   width: 100%;
   height: 100%;
-  border: 0.6rem dashed red;
+  border: 0.1rem solid red;
 }
 
 footer {
@@ -42,7 +43,7 @@ footer .footerElements {
   font-size: 1rem;
   text-align: center;
   line-height: 1.6rem;
-  color: #F3F3F3;
+  color: #f3f3f3;
 }
 
 footer .footerElements a {
