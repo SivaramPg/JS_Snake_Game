@@ -67,32 +67,43 @@ generateSnakeBody = () => {
   console.log(currentPos);
   switch (direction) {
     case ("up"):
-        generateBlock(bodyXStartPos, (bodyYStartPos += canvasElementsDim), "blue");
+        generateBlock(bodyXStartPos, bodyYStartPos, "blue");
         console.log(bodyXStartPos, bodyYStartPos);
       break;
     case ("down"):
-        generateBlock(bodyXStartPos, (bodyYStartPos -= canvasElementsDim), "blue");
+        generateBlock(bodyXStartPos, bodyYStartPos, "blue");
         console.log(bodyXStartPos, bodyYStartPos);
       break;
     case ("right"):
-        generateBlock((bodyXStartPos -= canvasElementsDim), bodyYStartPos, "blue");
+        generateBlock(bodyXStartPos, bodyYStartPos, "blue");
         console.log(bodyXStartPos, bodyYStartPos);
       break;
     case ("left"):
-        generateBlock((bodyXStartPos += canvasElementsDim), bodyYStartPos, "blue");
+        generateBlock(bodyXStartPos, bodyYStartPos, "blue");
         console.log(bodyXStartPos, bodyYStartPos);
       break;
   }
   bodyPositions.push([bodyXStartPos, bodyYStartPos]);
 }
 
+const checkNewApplePosition = (x, y) => {
+  for(i=0; i<bodyPositions.length; i++)
+  {
+    if(x===bodyPositions[i][0] && y===bodyPositions[i][1])
+      return false;
+  }
+  return true;
+}
 
 const generateApple = () => {
   let randXPos = Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
   let randYPos = Math.floor(Math.random() * yGridPositions()) * canvasElementsDim;
-  generateBlock(randXPos,randYPos,"#FF0F00");
-  currentPos.appleX = randXPos;
-  currentPos.appleY = randYPos;
+  if(checkNewApplePosition(randXPos,randYPos)){ //True for okay. False for not okay
+    generateBlock(randXPos,randYPos,"#FF0F00");
+    currentPos.appleX = randXPos;
+    currentPos.appleY = randYPos;
+  }
+  else generateApple();
 };
 
 const reset = () =>{
@@ -161,6 +172,13 @@ const checkAndUpdatePositions = () => {
       canvasElementsDim,
       canvasElementsDim
     );
+    if(pending){
+      generateSnakeBody();
+      pending--;
+    }
+    else if(bodyPositions.length){
+      updateSnake();
+    }
     currentPos.snakeX += speed.x;
     currentPos.snakeY += speed.y;
     generateBlock(currentPos.snakeX, currentPos.snakeY, 'green');
@@ -172,12 +190,13 @@ const updateScore = () => {
   pending +=5;
 };
 
-const updateSnake = () => {};
+const updateSnake = () => {
+
+};
 
 const checkAndUpdateApple = () => {
   if (currentPos.snakeX === currentPos.appleX 
     && currentPos.snakeY === currentPos.appleY) {
-    generateSnakeBody();
     generateApple();
     updateScore();
   }
