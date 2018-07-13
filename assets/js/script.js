@@ -8,7 +8,10 @@ const footerHeight = document.querySelector("footer").offsetHeight;
 const canvasElementsDim = 30;
 let id = 0,
   score = 1,
-  direction = "";
+  direction = "",
+  pending=0,
+  bodyPositions = []
+;
 
 //Can be used later to create gap b/w new snake blocks.
 //const sizeOfGrid = 30;
@@ -58,8 +61,31 @@ const generateSnakeHead = () => {
   generateBlock(xPos, yPos, "green"); // setting different colors for dev purposed only
 };
 
-const generateSnakeBody = () => {
-};
+generateSnakeBody = () => {
+  let bodyXStartPos = currentPos.snakeX;
+  let bodyYStartPos = currentPos.snakeY;
+  console.log(currentPos);
+  switch (direction) {
+    case ("up"):
+        generateBlock(bodyXStartPos, (bodyYStartPos += canvasElementsDim), "blue");
+        console.log(bodyXStartPos, bodyYStartPos);
+      break;
+    case ("down"):
+        generateBlock(bodyXStartPos, (bodyYStartPos -= canvasElementsDim), "blue");
+        console.log(bodyXStartPos, bodyYStartPos);
+      break;
+    case ("right"):
+        generateBlock((bodyXStartPos -= canvasElementsDim), bodyYStartPos, "blue");
+        console.log(bodyXStartPos, bodyYStartPos);
+      break;
+    case ("left"):
+        generateBlock((bodyXStartPos += canvasElementsDim), bodyYStartPos, "blue");
+        console.log(bodyXStartPos, bodyYStartPos);
+      break;
+  }
+  bodyPositions.push([bodyXStartPos, bodyYStartPos]);
+}
+
 
 const generateApple = () => {
   let randXPos = Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
@@ -69,12 +95,23 @@ const generateApple = () => {
   currentPos.appleY = randYPos;
 };
 
+const reset = () =>{
+  id = 0;
+  score = 1;
+  direction = "";
+  pending=0;
+  bodyPositions = [];
+  currentPos.snakeX = "";
+  currentPos.snakeY = "";
+  currentPos.appleX = "";
+  currentPos.appleY = "";
+}
 //Triggers for initiation and restart
 const play = () => {
   if (id) {
     //For resize
     clearInterval(id);
-    score = 1;
+    reset();
   }
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   generateSnakeHead();
@@ -91,7 +128,7 @@ const gameOverRun = () => {
   speed.y = 0;
   const playAgain = confirm(`Game Over! Your score is ${score}! Play Again?`); // check if user wants to play again, confirm returns either true or false on selection.
   if (playAgain) {
-    score = 1; // if yes then only clear canvas & restart the game
+    reset();
     play();
   } else {
     alert("Thanks for playing");
@@ -105,6 +142,16 @@ const checkBounds = () => {
     gameOverRun();
   }
 };
+const checkSnakeCollision = () => {
+  const x = currentPos.snakeX;
+  const y = currentPos.snakeY;
+  for(i=0; i<bodyPositions.length; i++){
+    if(x === bodyPositions[i][0]
+      && y === bodyPositions[i][1]){
+      gameOverRun();
+    }
+  }
+}
 
 const checkAndUpdatePositions = () => {
   if (speed.x || speed.y) {
@@ -122,18 +169,17 @@ const checkAndUpdatePositions = () => {
 
 const updateScore = () => {
   score += 5;
+  pending +=5;
 };
 
 const updateSnake = () => {};
 
 const checkAndUpdateApple = () => {
-  if (
-    currentPos.snakeX === currentPos.appleX &&
-    currentPos.snakeY === currentPos.appleY
-  ) {
-    updateScore();
+  if (currentPos.snakeX === currentPos.appleX 
+    && currentPos.snakeY === currentPos.appleY) {
     generateSnakeBody();
     generateApple();
+    updateScore();
   }
 };
 
@@ -141,6 +187,7 @@ const checkAndUpdateApple = () => {
 const update = () => {
   checkAndUpdatePositions();
   checkAndUpdateApple();
+  checkSnakeCollision();
   checkBounds();
 };
 

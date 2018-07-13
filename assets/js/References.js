@@ -1,51 +1,65 @@
+//1
 generateSnakeBody = () => {
-	 let bodyXStartPos = currentPos.snakeX; // separately caching and tracking the position of the head to calculate the body positions without changing the head position.
+	let bodyXStartPos = currentPos.snakeX; // separately caching and tracking the position of the head to calculate the body positions without changing the head position.
   let bodyYStartPos = currentPos.snakeY;
 
   switch (direction) {
     case ("up"):
-      for (let i = 0; i < 5; i++) {
         generateBlock(
           bodyXStartPos,
           (bodyYStartPos += canvasElementsDim),
           "blue"
         );
         console.log(bodyXStartPos, bodyYStartPos);
-      }
       break;
     case ("down"):
-      for (let i = 0; i < 5; i++) {
         generateBlock(
           bodyXStartPos,
           (bodyYStartPos -= canvasElementsDim),
           "blue"
         );
         console.log(bodyXStartPos, bodyYStartPos);
-      }
       break;
     case ("right"):
-      for (let i = 0; i < 5; i++) {
         generateBlock(
           (bodyXStartPos -= canvasElementsDim),
           bodyYStartPos,
           "blue"
         );
         console.log(bodyXStartPos, bodyYStartPos);
-      }
       break;
     case ("left"):
-      for (let i = 0; i < 5; i++) {
         generateBlock(
           (bodyXStartPos += canvasElementsDim),
           bodyYStartPos,
           "blue"
         );
         console.log(bodyXStartPos, bodyYStartPos);
-      }
       break;
   }
 }
 
+//2
+const checkAndUpdatePosition = () => {
+  if (speed.x || speed.y) {
+    ctx.clearRect(
+      currentPos.snakeX,
+      currentPos.snakeY,
+      canvasElementsDim,
+      canvasElementsDim
+    );
+    currentPos.snakeX += speed.x;
+    currentPos.snakeY += speed.y;
+    ctx.fillStyle = 'green';
+    ctx.fillRect(
+      currentPos.snakeX,
+      currentPos.snakeY,
+      canvasElementsDim,
+      canvasElementsDim
+    );
+    createAnimatedBody();
+  }
+};
 
 const createAnimatedBody = () => {
   let xBody = currentPos.snakeX - speed.x;
@@ -65,3 +79,4 @@ const createAnimatedBody = () => {
       canvasElementsDim
     );
   }
+}
