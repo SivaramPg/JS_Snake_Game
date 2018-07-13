@@ -192,24 +192,25 @@ const updateScore = () => {
 
 //First should follow head, rest should follow the next.
 const updateSnake = () => {
-  for(i=bodyPositions.length-1; i>=0; i--){
-    debugger;
-    x=bodyPositions[i][0];
-    y=bodyPositions[i][1];
-    ctx.clearRect(x, y, canvasElementsDim, canvasElementsDim);
-    if(i===bodyPositions.length -1){
-      x = currentPos.snakeX;
-      y = currentPos.snakeY;
-    }
-    else{
-      x = bodyPositions[i+1][0];
-      y = bodyPositions[i+1][1];
-    }
-    generateBlock(x, y, 'blue');
-    bodyPositions[i][0] = x;
-    bodyPositions[i][1] = y;
+  let length = bodyPositions.length;
+  //For first body element
+  let pos = bodyPositions[length-1];
+  let temp = pos;
+  ctx.clearRect(pos[0], pos[1], canvasElementsDim, canvasElementsDim);
+  pos = [currentPos.snakeX, currentPos.snakeY];
+  generateBlock(pos[0], pos[1], 'blue');
+  bodyPositions[length-1] = pos;  
+
+  //For subsequent body elements
+  for(i = length-2; i>=0; i--){
+    let pos = bodyPositions[i];
+    ctx.clearRect(pos[0], pos[1], canvasElementsDim, canvasElementsDim);
+    pos = temp;
+    generateBlock(pos[0], pos[1], 'blue');
+    temp = bodyPositions[i];
+    bodyPositions[i] = pos;
   }
-};
+}
 
 const checkAndUpdateApple = () => {
   if (currentPos.snakeX === currentPos.appleX 
