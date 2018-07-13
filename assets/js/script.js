@@ -1,30 +1,31 @@
 const body = document.querySelector("body");
 const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
 const headerHeight = document.querySelector("header").offsetHeight;
 const footerHeight = document.querySelector("footer").offsetHeight;
 
 // creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
 const canvasElementsDim = 30;
 let id = 0,
-  score = 1;
-let snakelength = 1;
-let direction = "";
+  score = 1,
+  direction = "";
+
 //Can be used later to create gap b/w new snake blocks.
 //const sizeOfGrid = 30;
 //const sizeOfObject = 28;
 
-const ctx = canvas.getContext("2d");
 const currentPos = {
   snakeX: "",
   snakeY: "",
   appleX: "",
   appleY: ""
 };
+
 const speed = {
   x: 0,
   y: 0
 };
-// ** For resizing the canvas depending on the window size.**
+//For resizing the canvas depending on the window size
 const setDisplay = () => {
   canvas.height = window.innerHeight - headerHeight - footerHeight;
   canvas.width = window.innerWidth;
@@ -44,32 +45,27 @@ const yGridPositions = () => {
   return (yPositions = Math.floor(canvas.height / canvasElementsDim));
 };
 
-const generateSnake = (xPos, yPos, color) => {
-  // Now just draws whatever is passed to it... All processing is done in the main passing functions.
+const generateBlock = (xPos, yPos, color) => {
   ctx.fillStyle = color;
   ctx.fillRect(xPos, yPos, canvasElementsDim, canvasElementsDim);
 };
 
 const generateSnakeHead = () => {
-  // Now passing random initial value and we only track the main head of the snake.
   let xPos = Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
   let yPos = Math.floor(Math.random() * yGridPositions()) * canvasElementsDim;
   currentPos.snakeX = xPos;
   currentPos.snakeY = yPos;
-  generateSnake(xPos, yPos, "green"); // setting different colors for dev purposed only
+  generateBlock(xPos, yPos, "green"); // setting different colors for dev purposed only
 };
 
 const generateSnakeBody = () => {
-  // Passes the correctly oriented body to canvas and appends it to the snake.
   let bodyXStartPos = currentPos.snakeX; // separately caching and tracking the position of the head to calculate the body positions without changing the head position.
   let bodyYStartPos = currentPos.snakeY;
 
-  switch (
-    direction // current heading direction now set on keypress.
-  ) {
-    case "up":
-      for (let i = 1; i < score; i++) {
-        generateSnake(
+  switch (direction) {
+    case ("up"):
+      for (let i = 0; i < 5; i++) {
+        generateBlock(
           bodyXStartPos,
           (bodyYStartPos += canvasElementsDim),
           "blue"
@@ -77,9 +73,9 @@ const generateSnakeBody = () => {
         console.log(bodyXStartPos, bodyYStartPos);
       }
       break;
-    case "down":
-      for (let i = 1; i < score; i++) {
-        generateSnake(
+    case ("down"):
+      for (let i = 0; i < 5; i++) {
+        generateBlock(
           bodyXStartPos,
           (bodyYStartPos -= canvasElementsDim),
           "blue"
@@ -87,9 +83,9 @@ const generateSnakeBody = () => {
         console.log(bodyXStartPos, bodyYStartPos);
       }
       break;
-    case "right":
-      for (let i = 1; i < score; i++) {
-        generateSnake(
+    case ("right"):
+      for (let i = 0; i < 5; i++) {
+        generateBlock(
           (bodyXStartPos -= canvasElementsDim),
           bodyYStartPos,
           "blue"
@@ -97,9 +93,9 @@ const generateSnakeBody = () => {
         console.log(bodyXStartPos, bodyYStartPos);
       }
       break;
-    case "left":
-      for (let i = 1; i < score; i++) {
-        generateSnake(
+    case ("left"):
+      for (let i = 0; i < 5; i++) {
+        generateBlock(
           (bodyXStartPos += canvasElementsDim),
           bodyYStartPos,
           "blue"
@@ -111,12 +107,9 @@ const generateSnakeBody = () => {
 };
 
 const generateApple = () => {
-  let randXPos =
-    Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
-  let randYPos =
-    Math.floor(Math.random() * yGridPositions()) * canvasElementsDim;
-  ctx.fillStyle = "#FF0F00";
-  ctx.fillRect(randXPos, randYPos, canvasElementsDim, canvasElementsDim);
+  let randXPos = Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
+  let randYPos = Math.floor(Math.random() * yGridPositions()) * canvasElementsDim;
+  generateBlock(randXPos,randYPos,"#FF0F00");
   currentPos.appleX = randXPos;
   currentPos.appleY = randYPos;
 };
