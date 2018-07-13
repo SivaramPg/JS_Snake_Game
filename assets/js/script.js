@@ -44,45 +44,66 @@ const yGridPositions = () => {
   return (yPositions = Math.floor(canvas.height / canvasElementsDim));
 };
 
-const generateSnake = (xPos, yPos, color) => {   // Now just draws whatever is passed to it... All processing is done in the main passing functions.
+const generateSnake = (xPos, yPos, color) => {
+  // Now just draws whatever is passed to it... All processing is done in the main passing functions.
   ctx.fillStyle = color;
   ctx.fillRect(xPos, yPos, canvasElementsDim, canvasElementsDim);
 };
 
-const generateSnakeHead = () => { // Now passing random initial value and we only track the main head of the snake.
+const generateSnakeHead = () => {
+  // Now passing random initial value and we only track the main head of the snake.
   let xPos = Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
   let yPos = Math.floor(Math.random() * yGridPositions()) * canvasElementsDim;
-  currentPos.snakeX = xPos;  
+  currentPos.snakeX = xPos;
   currentPos.snakeY = yPos;
   generateSnake(xPos, yPos, "green"); // setting different colors for dev purposed only
 };
 
-const generateSnakeBody = () => { // Passes the correctly oriented body to canvas and appends it to the snake. 
-  let bodyXStartPos = currentPos.snakeX;  // separately caching and tracking the position of the head to calculate the body positions without changing the head position.
+const generateSnakeBody = () => {
+  // Passes the correctly oriented body to canvas and appends it to the snake.
+  let bodyXStartPos = currentPos.snakeX; // separately caching and tracking the position of the head to calculate the body positions without changing the head position.
   let bodyYStartPos = currentPos.snakeY;
 
-  switch (direction) { // current heading direction now set on keypress.
-    case ('up'):
+  switch (
+    direction // current heading direction now set on keypress.
+  ) {
+    case "up":
       for (let i = 1; i < score; i++) {
-        generateSnake(bodyXStartPos, bodyYStartPos += canvasElementsDim, "blue");
+        generateSnake(
+          bodyXStartPos,
+          (bodyYStartPos += canvasElementsDim),
+          "blue"
+        );
         console.log(bodyXStartPos, bodyYStartPos);
       }
       break;
-    case ('down'):
+    case "down":
       for (let i = 1; i < score; i++) {
-        generateSnake(bodyXStartPos, bodyYStartPos -= canvasElementsDim, "blue");
+        generateSnake(
+          bodyXStartPos,
+          (bodyYStartPos -= canvasElementsDim),
+          "blue"
+        );
         console.log(bodyXStartPos, bodyYStartPos);
       }
       break;
-    case ('right'):
+    case "right":
       for (let i = 1; i < score; i++) {
-        generateSnake(bodyXStartPos -= canvasElementsDim, bodyYStartPos, "blue");
+        generateSnake(
+          (bodyXStartPos -= canvasElementsDim),
+          bodyYStartPos,
+          "blue"
+        );
         console.log(bodyXStartPos, bodyYStartPos);
       }
       break;
-    case ('left'):
+    case "left":
       for (let i = 1; i < score; i++) {
-        generateSnake(bodyXStartPos += canvasElementsDim, bodyYStartPos, "blue");
+        generateSnake(
+          (bodyXStartPos += canvasElementsDim),
+          bodyYStartPos,
+          "blue"
+        );
         console.log(bodyXStartPos, bodyYStartPos);
       }
       break;
@@ -185,22 +206,22 @@ const update = () => {
 const moveUp = () => {
   speed.y = -30;
   speed.x = 0;
-  direction = 'up'
+  direction = "up";
 };
 const moveDown = () => {
   speed.y = 30;
   speed.x = 0;
-  direction = 'down'
+  direction = "down";
 };
 const moveLeft = () => {
   speed.y = 0;
   speed.x = -30;
-  direction = 'left';
+  direction = "left";
 };
 const moveRight = () => {
   speed.y = 0;
   speed.x = 30;
-  direction = 'right';
+  direction = "right";
 };
 
 //Event Listeners
