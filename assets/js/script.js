@@ -193,24 +193,32 @@ const update = () => {
 
 //Functions for movement
 const moveUp = () => {
-  speed.y = -30;
-  speed.x = 0;
-  direction = "up";
+  if(direction !=="down" || !bodyPositions.length){
+    speed.y = -30;
+    speed.x = 0;
+    direction = "up";
+  }
 };
 const moveDown = () => {
-  speed.y = 30;
-  speed.x = 0;
-  direction = "down";
+  if(direction !== "up" || !bodyPositions.length){
+    speed.y = 30;
+    speed.x = 0;
+    direction = "down";
+  }
 };
 const moveLeft = () => {
-  speed.y = 0;
-  speed.x = -30;
-  direction = "left";
+  if(direction !== "right" || !bodyPositions.length){
+    speed.y = 0;
+    speed.x = -30;
+    direction = "left";
+  }
 };
 const moveRight = () => {
-  speed.y = 0;
-  speed.x = 30;
-  direction = "right";
+  if(direction !== "left" || !bodyPositions.length){  
+    speed.y = 0;
+    speed.x = 30;
+    direction = "right";
+  }
 };
 
 //Event Listeners
