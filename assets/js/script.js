@@ -190,8 +190,25 @@ const updateScore = () => {
   pending +=5;
 };
 
+//First should follow head, rest should follow the next.
 const updateSnake = () => {
-
+  for(i=bodyPositions.length-1; i>=0; i--){
+    debugger;
+    x=bodyPositions[i][0];
+    y=bodyPositions[i][1];
+    ctx.clearRect(x, y, canvasElementsDim, canvasElementsDim);
+    if(i===bodyPositions.length -1){
+      x = currentPos.snakeX;
+      y = currentPos.snakeY;
+    }
+    else{
+      x = bodyPositions[i+1][0];
+      y = bodyPositions[i+1][1];
+    }
+    generateBlock(x, y, 'blue');
+    bodyPositions[i][0] = x;
+    bodyPositions[i][1] = y;
+  }
 };
 
 const checkAndUpdateApple = () => {
