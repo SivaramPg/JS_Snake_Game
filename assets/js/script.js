@@ -1,12 +1,14 @@
 const body = document.querySelector("body");
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
+const header = document.querySelector("header");
 const headerHeight = document.querySelector("header").offsetHeight;
+const footer = document.querySelector("footer");
 const footerHeight = document.querySelector("footer").offsetHeight;
 const dispScore = document.getElementById("score");
 
 // creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
-const canvasElementsDim = 30;
+const canvasElementsDim = 20;
 let id = 0,
   score = 1,
   direction = "",
@@ -30,10 +32,31 @@ const speed = {
 };
 //For resizing the canvas depending on the window size
 const setDisplay = () => {
-  canvas.height = window.innerHeight - headerHeight - footerHeight - 80;
+  canvas.height = window.innerHeight - headerHeight - footerHeight - 80; // Subtracting the padding applied on both sides
   canvas.width = window.innerWidth - 80;
   canvas.height -= canvas.height % canvasElementsDim;
   canvas.width -= canvas.width % canvasElementsDim;
+  header.style.height = `${headerHeight +
+    ((window.innerHeight - headerHeight - footerHeight - 80) %
+      canvasElementsDim) /
+      2}px`;
+  footer.style.height = `${footerHeight +
+    ((window.innerHeight - headerHeight - footerHeight - 80) %
+      canvasElementsDim) /
+      2}px`;
+  canvas.style.marginRight = `${(window.innerWidth - canvas.width) / 2}px`;
+  canvas.style.marginLeft = `${(window.innerWidth - canvas.width) / 2}px`;
+  canvas.style.marginTop = `${(window.innerHeight -
+    headerHeight -
+    canvas.height -
+    footerHeight) /
+    2}px`;
+  canvas.style.marginBottom = `${(window.innerHeight -
+    headerHeight -
+    canvas.height -
+    footerHeight) /
+    2}px`;
+
   dispScore.innerHTML = `Score: ${score}`;
 };
 
@@ -50,8 +73,15 @@ const yGridPositions = () => {
 };
 
 const generateBlock = (xPos, yPos, color) => {
+  borderThickness = 1;
   ctx.fillStyle = color;
+<<<<<<< HEAD
   ctx.fillRect(xPos+1, yPos+1, sizeOfObject, sizeOfObject);
+=======
+  ctx.fillRect(xPos, yPos, canvasElementsDim, canvasElementsDim);
+  // Adding border to the blocks ... They should be within the footprint of the block ie inside 30x30 otherwise they will not be cleared. giving them the same dimensions as that of the block will also not work
+  // ctx.strokeRect(xPos+borderThickness, yPos+borderThickness, canvasElementsDim-(2*borderThickness), canvasElementsDim-(2*borderThickness));
+>>>>>>> 20ee86876289528d779b663f1296e17491b10071
 };
 
 const generateSnakeHead = () => {
@@ -236,14 +266,14 @@ const update = () => {
 //Functions for movement
 const moveUp = () => {
   if (direction !== "down" || !bodyPositions.length) {
-    speed.y = -30;
+    speed.y = -canvasElementsDim;
     speed.x = 0;
     direction = "up";
   }
 };
 const moveDown = () => {
   if (direction !== "up" || !bodyPositions.length) {
-    speed.y = 30;
+    speed.y = canvasElementsDim;
     speed.x = 0;
     direction = "down";
   }
@@ -251,14 +281,14 @@ const moveDown = () => {
 const moveLeft = () => {
   if (direction !== "right" || !bodyPositions.length) {
     speed.y = 0;
-    speed.x = -30;
+    speed.x = -canvasElementsDim;
     direction = "left";
   }
 };
 const moveRight = () => {
   if (direction !== "left" || !bodyPositions.length) {
     speed.y = 0;
-    speed.x = 30;
+    speed.x = canvasElementsDim;
     direction = "right";
   }
 };
