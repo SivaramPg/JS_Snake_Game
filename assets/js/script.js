@@ -73,7 +73,6 @@ const yGridPositions = () => {
 };
 
 const generateBlock = (xPos, yPos, color) => {
-  borderThickness = 1;
   ctx.fillStyle = color;
   ctx.fillRect(xPos+1, yPos+1, sizeOfObject, sizeOfObject);
   // Adding border to the blocks ... They should be within the footprint of the block ie inside 30x30 otherwise they will not be cleared. giving them the same dimensions as that of the block will also not work
