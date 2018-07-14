@@ -6,11 +6,6 @@ const footerHeight = document.querySelector("footer").offsetHeight;
 
 // creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
 const canvasElementsDim = 30;
-<<<<<<< HEAD
-let id = 0;
-let score = 1;;
-let direction = "";
-=======
 let id = 0,
   score = 1,
   direction = "",
@@ -18,7 +13,6 @@ let id = 0,
   bodyPositions = []
 ;
 
->>>>>>> 83b4256cc910b7168a02084134089f5741d388ae
 //Can be used later to create gap b/w new snake blocks.
 //const sizeOfGrid = 30;
 //const sizeOfObject = 28;
@@ -67,58 +61,6 @@ const generateSnakeHead = () => {
   generateBlock(xPos, yPos, "green"); // setting different colors for dev purposed only
 };
 
-<<<<<<< HEAD
-// const generateSnakeBody = () => {
-//   // Passes the correctly oriented body to canvas and appends it to the snake.
-//   let bodyXStartPos = currentPos.snakeX - 30; // separately caching and tracking the position of the head to calculate the body positions without changing the head position.
-//   let bodyYStartPos = currentPos.snakeY - 30;
-
-//   switch (
-//     direction // current heading direction now set on keypress.
-//   ) {
-//     case "up":
-//       // for (let i = 1; i < score; i++) {
-//         generateSnake(
-//           bodyXStartPos,
-//           (bodyYStartPos += canvasElementsDim),
-//           "blue"
-//         );
-//         console.log(bodyXStartPos, bodyYStartPos);
-//       // }
-//       break;
-//     case "down":
-//       // for (let i = 1; i < score; i++) {
-//         generateSnake(
-//           bodyXStartPos,
-//           (bodyYStartPos -= canvasElementsDim),
-//           "blue"
-//         );
-//         console.log(bodyXStartPos, bodyYStartPos);
-//       // }
-//       break;
-//     case "right":
-//       // for (let i = 1; i < score; i++) {
-//         generateSnake(
-//           (bodyXStartPos -= canvasElementsDim),
-//           bodyYStartPos,
-//           "blue"
-//         );
-//         console.log(bodyXStartPos, bodyYStartPos);
-//       // }
-//       break;
-//     case "left":
-//       // for (let i = 1; i < score; i++) {
-//         generateSnake(
-//           (bodyXStartPos += canvasElementsDim),
-//           bodyYStartPos,
-//           "blue"
-//         );
-//         console.log(bodyXStartPos, bodyYStartPos);
-//       // }
-//       break;
-//   }
-// };
-=======
 generateSnakeBody = () => {
   let bodyXStartPos = currentPos.snakeX;
   let bodyYStartPos = currentPos.snakeY;
@@ -152,7 +94,6 @@ const checkNewApplePosition = (x, y) => {
   }
   return true;
 }
->>>>>>> 83b4256cc910b7168a02084134089f5741d388ae
 
 const generateApple = () => {
   let randXPos = Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
