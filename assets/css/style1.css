@@ -66,6 +66,7 @@ footer .footerElements a {
 }
 
 footer #score {
+  margin: -2rem;
   height: 4rem;
   color: black;
   font-size: 4rem;

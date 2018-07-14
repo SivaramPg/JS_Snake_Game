@@ -5,8 +5,11 @@ const headerHeight = document.querySelector("header").offsetHeight;
 const footerHeight = document.querySelector("footer").offsetHeight;
 const dispScore = document.getElementById("score");
 
+var appleImg = new Image();   // Create new img element
+appleImg.src = 'assets/images/apple.svg';
+
 // creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
-const canvasElementsDim = 30;
+const canvasElementsDim = 20;
 let id = 0,
   score = 1,
   direction = "",
@@ -30,7 +33,7 @@ const speed = {
 };
 //For resizing the canvas depending on the window size
 const setDisplay = () => {
-  canvas.height = window.innerHeight - headerHeight - footerHeight - 80;
+  canvas.height = window.innerHeight - headerHeight - footerHeight - 80; // Subtracting the padding applied on both sides
   canvas.width = window.innerWidth - 80;
   canvas.height -= canvas.height % canvasElementsDim;
   canvas.width -= canvas.width % canvasElementsDim;
@@ -236,14 +239,14 @@ const update = () => {
 //Functions for movement
 const moveUp = () => {
   if (direction !== "down" || !bodyPositions.length) {
-    speed.y = -30;
+    speed.y = -canvasElementsDim;
     speed.x = 0;
     direction = "up";
   }
 };
 const moveDown = () => {
   if (direction !== "up" || !bodyPositions.length) {
-    speed.y = 30;
+    speed.y = canvasElementsDim;
     speed.x = 0;
     direction = "down";
   }
@@ -251,14 +254,14 @@ const moveDown = () => {
 const moveLeft = () => {
   if (direction !== "right" || !bodyPositions.length) {
     speed.y = 0;
-    speed.x = -30;
+    speed.x = -canvasElementsDim;
     direction = "left";
   }
 };
 const moveRight = () => {
   if (direction !== "left" || !bodyPositions.length) {
     speed.y = 0;
-    speed.x = 30;
+    speed.x = canvasElementsDim;
     direction = "right";
   }
 };
