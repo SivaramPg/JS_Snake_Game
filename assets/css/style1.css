@@ -18,7 +18,7 @@ header #heading {
   /* margin: auto 50%; */
   font-size: 3rem;
   text-align: center;
-  padding: 1.5rem;
+  padding: 0.5rem;
   height: auto;   /*required.... do not remove*/
   width: auto;
   background: rgba(255,255,255,0.5);
@@ -29,9 +29,9 @@ header #heading {
   /* keep width here so the app does not start scrolling vertically and overflows behind the vertical scroll bar 
   Changing height to 100% always displays footer and header
    */
-  /* width: 100%; */
-  /* height: 100%; */
-  /* border: 0.5rem solid yellowgreen; */
+  /* width: 100%; // Please don't remove
+  height: 100%; // Don't remove
+   border: 0.5rem solid yellowgreen; */
   background: palevioletred;
   margin: 40px;
   box-shadow: 0 0 2.5rem 0.1rem black;
@@ -62,7 +62,7 @@ footer .footerElements a {
 }
 
 footer #score {
-  height: auto;
+  height: 4rem;
   color: black;
   font-size: 4rem;
   float: right;
