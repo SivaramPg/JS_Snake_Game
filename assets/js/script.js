@@ -14,8 +14,8 @@ let id = 0,
   bodyPositions = [];
 
 //Can be used later to create gap b/w new snake blocks.
-//const sizeOfGrid = 30;
-//const sizeOfObject = 28;
+// const sizeOfGrid = 30;
+const sizeOfObject = 28;
 
 const currentPos = {
   snakeX: "",
@@ -51,7 +51,7 @@ const yGridPositions = () => {
 
 const generateBlock = (xPos, yPos, color) => {
   ctx.fillStyle = color;
-  ctx.fillRect(xPos, yPos, canvasElementsDim, canvasElementsDim);
+  ctx.fillRect(xPos+1, yPos+1, sizeOfObject, sizeOfObject);
 };
 
 const generateSnakeHead = () => {
@@ -169,10 +169,10 @@ const checkSnakeCollision = () => {
 const checkAndUpdatePositions = () => {
   if (speed.x || speed.y) {
     ctx.clearRect(
-      currentPos.snakeX,
-      currentPos.snakeY,
-      canvasElementsDim,
-      canvasElementsDim
+      currentPos.snakeX+1,
+      currentPos.snakeY+1,
+      sizeOfObject,
+      sizeOfObject
     );
     if (pending) {
       generateSnakeBody();
@@ -199,7 +199,7 @@ const updateSnake = () => {
   //For first body element
   let pos = bodyPositions[length - 1];
   let temp = pos;
-  ctx.clearRect(pos[0], pos[1], canvasElementsDim, canvasElementsDim);
+  ctx.clearRect(pos[0]+1, pos[1]+1, sizeOfObject, sizeOfObject);
   pos = [currentPos.snakeX, currentPos.snakeY];
   generateBlock(pos[0], pos[1], "blue");
   bodyPositions[length - 1] = pos;
@@ -207,7 +207,7 @@ const updateSnake = () => {
   //For subsequent body elements
   for (i = length - 2; i >= 0; i--) {
     let pos = bodyPositions[i];
-    ctx.clearRect(pos[0], pos[1], canvasElementsDim, canvasElementsDim);
+    ctx.clearRect(pos[0]+1, pos[1]+1, sizeOfObject, sizeOfObject);
     pos = temp;
     generateBlock(pos[0], pos[1], "blue");
     temp = bodyPositions[i];
