@@ -36,8 +36,13 @@ const setDisplay = () => {
   canvas.width = window.innerWidth - 80;
   canvas.height -= canvas.height % canvasElementsDim;
   canvas.width -= canvas.width % canvasElementsDim;
-  header.style.height = `${headerHeight+(((window.innerHeight - headerHeight - footerHeight - 80)%canvasElementsDim)/2)}px`
+  header.style.height = `${headerHeight+(((window.innerHeight - headerHeight - footerHeight - 80)%canvasElementsDim)/2)}px`;
   footer.style.height = `${footerHeight+(((window.innerHeight - headerHeight - footerHeight - 80)%canvasElementsDim)/2)}px`;
+  canvas.style.marginRight = `${(window.innerWidth - canvas.width)/2}px`;
+  canvas.style.marginLeft = `${(window.innerWidth - canvas.width)/2}px`;
+  canvas.style.marginTop = `${(window.innerHeight - headerHeight - canvas.height - footerHeight)/2}px`;
+  canvas.style.marginBottom = `${(window.innerHeight - headerHeight - canvas.height - footerHeight)/2}px`;
+
   dispScore.innerHTML = `Score: ${score}`;
 };
 
