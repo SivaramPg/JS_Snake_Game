@@ -91,31 +91,29 @@ const generateSnakeHead = () => {
 generateSnakeBody = () => {
   let bodyXStartPos = currentPos.snakeX;
   let bodyYStartPos = currentPos.snakeY;
-  console.log(currentPos);
   switch (direction) {
     case "up":
       generateBlock(bodyXStartPos, bodyYStartPos, "blue");
-      console.log(bodyXStartPos, bodyYStartPos);
       break;
     case "down":
       generateBlock(bodyXStartPos, bodyYStartPos, "blue");
-      console.log(bodyXStartPos, bodyYStartPos);
       break;
     case "right":
       generateBlock(bodyXStartPos, bodyYStartPos, "blue");
-      console.log(bodyXStartPos, bodyYStartPos);
       break;
     case "left":
       generateBlock(bodyXStartPos, bodyYStartPos, "blue");
-      console.log(bodyXStartPos, bodyYStartPos);
       break;
   }
   bodyPositions.push([bodyXStartPos, bodyYStartPos]);
 };
 
 const checkNewApplePosition = (x, y) => {
+  if(x === currentPos.snakeX && y === currentPos.snakeY)
+    return false;
   for (i = 0; i < bodyPositions.length; i++) {
-    if (x === bodyPositions[i][0] && y === bodyPositions[i][1]) return false;
+    if (x === bodyPositions[i][0] && y === bodyPositions[i][1]) 
+      return false;
   }
   return true;
 };
@@ -156,7 +154,6 @@ const play = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   generateSnakeHead();
   generateApple();
-  console.log(currentPos);
   id = setInterval(update, 90);
 };
 
