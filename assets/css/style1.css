@@ -25,7 +25,8 @@ header #heading {
   padding: 0.5rem;
   height: auto; /*required.... do not remove*/
   width: auto;
-  background: rgba(255, 255, 255, 0.5);
+  color: rgba(122, 142, 184);
+  background: rgba(26, 48, 96);
   box-shadow: 0 0 1rem 0.05rem black;
 }
 
@@ -36,7 +37,7 @@ header #heading {
   /* width: 100%; // Please don't remove
   height: 100%; // Don't remove
    border: 0.5rem solid yellowgreen; */
-  background: palevioletred;
+  background: rgba(141, 242, 238);
   margin: 40px;
   box-shadow: 0 0 1rem 0.05rem black;
   border-radius: 0.5rem;
@@ -44,7 +45,7 @@ header #heading {
 
 #footer {
   box-shadow: 0 0 1rem 0.05rem black;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(4, 28, 46);
   padding: 2rem;
   height: auto; /*required.... do not remove*/
   width: 100%;
@@ -62,13 +63,13 @@ header #heading {
   font-size: 1.3rem;
   text-align: center;
   line-height: 1.6rem;
-  color: #000;
+  color: rgba(78, 83, 142);
 }
 
 #footer .footerElement a {
   font-size: 1.5rem;
-  color: blue;
-  text-decoration-color: blue;
+  color:tomato ;
+  text-decoration-color: tomato;
 }
 
 #footer #score {
@@ -77,7 +78,7 @@ header #heading {
   margin: -2rem 0 0 0;
   flex-basis: 33%;
   /* height: 4rem; */
-  color: black;
+  color: rgba(176, 154, 245);
   font-size: 3.5rem;
   text-align: center;
 }
