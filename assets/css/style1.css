@@ -40,8 +40,9 @@ footer {
 }
 
 footer .footerElements {
+  padding-left: 100px;
   font-size: 1rem;
-  text-align: center;
+  text-align: left;
   line-height: 1.6rem;
   color: #f3f3f3;
 }

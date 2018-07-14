@@ -187,26 +187,6 @@ const checkAndUpdatePositions = () => {
   }
 };
 
-// const createAnimatedBody = () => {
-//   let xBody = currentPos.snakeX - speed.x;
-//   let yBody = currentPos.snakeY - speed.y;
-//   for (i = 1; i < score; i++) {
-//     ctx.clearRect(
-//       xBody - speed.x,
-//       yBody - speed.y,
-//       canvasElementsDim,
-//       canvasElementsDim
-//     );
-//     ctx.fillStyle = 'blue';
-//     ctx.fillRect(
-//       xBody,
-//       yBody,
-//       canvasElementsDim,
-//       canvasElementsDim
-//     );
-//   }
-// }
-
 const updateScore = () => {
   score += 5;
   pending +=5;
@@ -247,9 +227,9 @@ const checkAndUpdateApple = () => {
     generateApple();
     updateScore();
   }
-};
+}};;
 
-//Runs continously, updates and checks
+//Runs continuously, updates and checks
 const update = () => {
   checkAndUpdatePositions();
   checkAndUpdateApple();
