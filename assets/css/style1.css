@@ -19,24 +19,18 @@ html {
 }
 
 header #heading {
-  /* margin: auto 50%; */
   font-size: 3rem;
   text-align: center;
   padding: 0.5rem;
   height: auto; /*required.... do not remove*/
   width: auto;
-  background: rgba(255, 255, 255, 0.5);
+  color: rgba(122, 142, 184);
+  background: rgba(26, 48, 96);
   box-shadow: 0 0 1rem 0.05rem black;
 }
 
 #myCanvas {
-  /* keep width here so the app does not start scrolling vertically and overflows behind the vertical scroll bar 
-  Changing height to 100% always displays footer and header
-   */
-  /* width: 100%; // Please don't remove
-  height: 100%; // Don't remove
-   border: 0.5rem solid yellowgreen; */
-  background: palevioletred;
+  background: rgb(141, 242, 238);
   margin: 40px;
   box-shadow: 0 0 1rem 0.05rem black;
   border-radius: 0.5rem;
@@ -44,7 +38,7 @@ header #heading {
 
 #footer {
   box-shadow: 0 0 1rem 0.05rem black;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgb(4, 28, 46);
   padding: 2rem;
   height: auto; /*required.... do not remove*/
   width: 100%;
@@ -57,27 +51,27 @@ header #heading {
 }
 
 #footer .footerElement {
-  /* display: flex; */
+  display: flex;
   flex-basis: 66%;
   font-size: 1.3rem;
   text-align: center;
   line-height: 1.6rem;
-  color: #000;
+  color: rgb(78, 83, 142);
 }
 
 #footer .footerElement a {
   font-size: 1.5rem;
-  color: blue;
-  text-decoration-color: blue;
+  color:tomato ;
+  text-decoration-color: tomato;
 }
 
 #footer #score {
   display: flex;
   align-content: center;
+  height: auto;
   margin: -2rem 0 0 0;
   flex-basis: 33%;
-  /* height: 4rem; */
-  color: black;
+  color: rgb(176, 154, 245);
   font-size: 3.5rem;
   text-align: center;
 }
