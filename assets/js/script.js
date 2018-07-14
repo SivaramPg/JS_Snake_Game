@@ -143,6 +143,7 @@ const reset = () => {
   currentPos.snakeY = "";
   currentPos.appleX = "";
   currentPos.appleY = "";
+  dispScore.innerHTML = `Score: ${score}`;
 };
 
 //Triggers for initiation and restart
