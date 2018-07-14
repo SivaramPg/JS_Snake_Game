@@ -8,7 +8,7 @@ const footerHeight = document.querySelector("footer").offsetHeight;
 const dispScore = document.getElementById("score");
 
 // creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
-const canvasElementsDim = 20;
+const canvasElementsDim = 30;
 let id = 0,
   score = 1,
   direction = "",
