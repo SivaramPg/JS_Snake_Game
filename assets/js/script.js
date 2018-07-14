@@ -3,7 +3,7 @@ const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 const header = document.querySelector("header");
 const headerHeight = document.querySelector("header").offsetHeight;
-const footer = document.querySelector("footer")
+const footer = document.querySelector("footer");
 const footerHeight = document.querySelector("footer").offsetHeight;
 const dispScore = document.getElementById("score");
 
@@ -36,12 +36,26 @@ const setDisplay = () => {
   canvas.width = window.innerWidth - 80;
   canvas.height -= canvas.height % canvasElementsDim;
   canvas.width -= canvas.width % canvasElementsDim;
-  header.style.height = `${headerHeight+(((window.innerHeight - headerHeight - footerHeight - 80)%canvasElementsDim)/2)}px`;
-  footer.style.height = `${footerHeight+(((window.innerHeight - headerHeight - footerHeight - 80)%canvasElementsDim)/2)}px`;
-  canvas.style.marginRight = `${(window.innerWidth - canvas.width)/2}px`;
-  canvas.style.marginLeft = `${(window.innerWidth - canvas.width)/2}px`;
-  canvas.style.marginTop = `${(window.innerHeight - headerHeight - canvas.height - footerHeight)/2}px`;
-  canvas.style.marginBottom = `${(window.innerHeight - headerHeight - canvas.height - footerHeight)/2}px`;
+  header.style.height = `${headerHeight +
+    ((window.innerHeight - headerHeight - footerHeight - 80) %
+      canvasElementsDim) /
+      2}px`;
+  footer.style.height = `${footerHeight +
+    ((window.innerHeight - headerHeight - footerHeight - 80) %
+      canvasElementsDim) /
+      2}px`;
+  canvas.style.marginRight = `${(window.innerWidth - canvas.width) / 2}px`;
+  canvas.style.marginLeft = `${(window.innerWidth - canvas.width) / 2}px`;
+  canvas.style.marginTop = `${(window.innerHeight -
+    headerHeight -
+    canvas.height -
+    footerHeight) /
+    2}px`;
+  canvas.style.marginBottom = `${(window.innerHeight -
+    headerHeight -
+    canvas.height -
+    footerHeight) /
+    2}px`;
 
   dispScore.innerHTML = `Score: ${score}`;
 };
@@ -59,11 +73,11 @@ const yGridPositions = () => {
 };
 
 const generateBlock = (xPos, yPos, color) => {
-  borderThickness = 1
+  borderThickness = 1;
   ctx.fillStyle = color;
   ctx.fillRect(xPos, yPos, canvasElementsDim, canvasElementsDim);
   // Adding border to the blocks ... They should be within the footprint of the block ie inside 30x30 otherwise they will not be cleared. giving them the same dimensions as that of the block will also not work
-  ctx.strokeRect(xPos+borderThickness, yPos+borderThickness, canvasElementsDim-(2*borderThickness), canvasElementsDim-(2*borderThickness));
+  // ctx.strokeRect(xPos+borderThickness, yPos+borderThickness, canvasElementsDim-(2*borderThickness), canvasElementsDim-(2*borderThickness));
 };
 
 const generateSnakeHead = () => {

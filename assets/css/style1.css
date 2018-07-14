@@ -42,34 +42,42 @@ header #heading {
   border-radius: 0.5rem;
 }
 
-footer {
+#footer {
   box-shadow: 0 0 1rem 0.05rem black;
   background-color: rgba(255, 255, 255, 0.5);
   padding: 2rem;
   height: auto; /*required.... do not remove*/
-  width: auto;
+  width: 100%;
   margin: 0;
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  justify-content: space-around;
+  align-items: flex-end;
 }
 
-footer .footerElements {
-  padding-left: 100px;
+#footer .footerElement {
+  /* display: flex; */
+  flex-basis: 66%;
   font-size: 1.3rem;
-  text-align: left;
+  text-align: center;
   line-height: 1.6rem;
   color: #000;
 }
 
-footer .footerElements a {
+#footer .footerElement a {
   font-size: 1.5rem;
   color: blue;
   text-decoration-color: blue;
 }
 
-footer #score {
-  margin: -2rem;
-  height: 4rem;
+#footer #score {
+  display: flex;
+  align-content: center;
+  margin: -2rem 0 0 0;
+  flex-basis: 33%;
+  /* height: 4rem; */
   color: black;
-  font-size: 4rem;
-  float: right;
-  padding-right: 200px;
+  font-size: 3.5rem;
+  text-align: center;
 }
