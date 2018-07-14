@@ -11,7 +11,11 @@ html {
   font-size: 62.5%;
   font-family: "Fira Sans", "Open Sans", sans-serif, "Courier New", monospace;
   overflow: hidden;
-  background: linear-gradient(210deg, rgba(68,148,71,0.4), rgba(1,31,192,0.7));
+  background: linear-gradient(
+    210deg,
+    rgba(68, 148, 71, 0.4),
+    rgba(1, 31, 192, 0.7)
+  );
 }
 
 header #heading {
@@ -19,9 +23,9 @@ header #heading {
   font-size: 3rem;
   text-align: center;
   padding: 0.5rem;
-  height: auto;   /*required.... do not remove*/
+  height: auto; /*required.... do not remove*/
   width: auto;
-  background: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.5);
   box-shadow: 0 0 2.5rem 0.1rem black;
 }
 
@@ -40,9 +44,9 @@ header #heading {
 
 footer {
   box-shadow: 0 0 2.5rem 0.1rem black;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   padding: 2rem;
-  height: auto;  /*required.... do not remove*/
+  height: auto; /*required.... do not remove*/
   width: auto;
   margin: 0;
 }
@@ -58,7 +62,7 @@ footer .footerElements {
 footer .footerElements a {
   font-size: 1.5rem;
   color: blue;
-  text-decoration-color:blue;
+  text-decoration-color: blue;
 }
 
 footer #score {
