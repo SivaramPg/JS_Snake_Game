@@ -1,6 +1,7 @@
 const body = document.querySelector("body");
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
+const header = document.querySelector("header");
 const headerHeight = document.querySelector("header").offsetHeight;
 const footer = document.querySelector("footer")
 const footerHeight = document.querySelector("footer").offsetHeight;
@@ -35,7 +36,8 @@ const setDisplay = () => {
   canvas.width = window.innerWidth - 80;
   canvas.height -= canvas.height % canvasElementsDim;
   canvas.width -= canvas.width % canvasElementsDim;
-  footer.style.height = `${footerHeight+((window.innerHeight - headerHeight - footerHeight - 80)%canvasElementsDim)}px`;
+  header.style.height = `${headerHeight+(((window.innerHeight - headerHeight - footerHeight - 80)%canvasElementsDim)/2)}px`
+  footer.style.height = `${footerHeight+(((window.innerHeight - headerHeight - footerHeight - 80)%canvasElementsDim)/2)}px`;
   dispScore.innerHTML = `Score: ${score}`;
 };
 
