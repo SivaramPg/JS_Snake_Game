@@ -3,15 +3,15 @@ const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 const headerHeight = document.querySelector("header").offsetHeight;
 const footerHeight = document.querySelector("footer").offsetHeight;
+const dispScore = document.getElementById("score");
 
 // creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
 const canvasElementsDim = 30;
 let id = 0,
   score = 1,
   direction = "",
-  pending=0,
-  bodyPositions = []
-;
+  pending = 0,
+  bodyPositions = [];
 
 //Can be used later to create gap b/w new snake blocks.
 //const sizeOfGrid = 30;
@@ -30,10 +30,11 @@ const speed = {
 };
 //For resizing the canvas depending on the window size
 const setDisplay = () => {
-  canvas.height = window.innerHeight - headerHeight - footerHeight;
-  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight - headerHeight - footerHeight - 80;
+  canvas.width = window.innerWidth - 80;
   canvas.height -= canvas.height % canvasElementsDim;
   canvas.width -= canvas.width % canvasElementsDim;
+  dispScore.innerHTML = `Score: ${score}`;
 };
 
 //Dividing the canvas into pseudo grids.
@@ -66,57 +67,58 @@ generateSnakeBody = () => {
   let bodyYStartPos = currentPos.snakeY;
   console.log(currentPos);
   switch (direction) {
-    case ("up"):
-        generateBlock(bodyXStartPos, bodyYStartPos, "blue");
-        console.log(bodyXStartPos, bodyYStartPos);
+    case "up":
+      generateBlock(bodyXStartPos, bodyYStartPos, "blue");
+      console.log(bodyXStartPos, bodyYStartPos);
       break;
-    case ("down"):
-        generateBlock(bodyXStartPos, bodyYStartPos, "blue");
-        console.log(bodyXStartPos, bodyYStartPos);
+    case "down":
+      generateBlock(bodyXStartPos, bodyYStartPos, "blue");
+      console.log(bodyXStartPos, bodyYStartPos);
       break;
-    case ("right"):
-        generateBlock(bodyXStartPos, bodyYStartPos, "blue");
-        console.log(bodyXStartPos, bodyYStartPos);
+    case "right":
+      generateBlock(bodyXStartPos, bodyYStartPos, "blue");
+      console.log(bodyXStartPos, bodyYStartPos);
       break;
-    case ("left"):
-        generateBlock(bodyXStartPos, bodyYStartPos, "blue");
-        console.log(bodyXStartPos, bodyYStartPos);
+    case "left":
+      generateBlock(bodyXStartPos, bodyYStartPos, "blue");
+      console.log(bodyXStartPos, bodyYStartPos);
       break;
   }
   bodyPositions.push([bodyXStartPos, bodyYStartPos]);
-}
-
-const checkNewApplePosition = (x, y) => {
-  for(i=0; i<bodyPositions.length; i++)
-  {
-    if(x===bodyPositions[i][0] && y===bodyPositions[i][1])
-      return false;
-  }
-  return true;
-}
-
-const generateApple = () => {
-  let randXPos = Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
-  let randYPos = Math.floor(Math.random() * yGridPositions()) * canvasElementsDim;
-  if(checkNewApplePosition(randXPos,randYPos)){ //True for okay. False for not okay
-    generateBlock(randXPos,randYPos,"#FF0F00");
-    currentPos.appleX = randXPos;
-    currentPos.appleY = randYPos;
-  }
-  else generateApple();
 };
 
-const reset = () =>{
+const checkNewApplePosition = (x, y) => {
+  for (i = 0; i < bodyPositions.length; i++) {
+    if (x === bodyPositions[i][0] && y === bodyPositions[i][1]) return false;
+  }
+  return true;
+};
+
+const generateApple = () => {
+  let randXPos =
+    Math.floor(Math.random() * xGridPositions()) * canvasElementsDim;
+  let randYPos =
+    Math.floor(Math.random() * yGridPositions()) * canvasElementsDim;
+  if (checkNewApplePosition(randXPos, randYPos)) {
+    //True for okay. False for not okay
+    generateBlock(randXPos, randYPos, "#FF0F00");
+    currentPos.appleX = randXPos;
+    currentPos.appleY = randYPos;
+  } else generateApple();
+};
+
+const reset = () => {
   id = 0;
   score = 1;
   direction = "";
-  pending=0;
+  pending = 0;
   bodyPositions = [];
   currentPos.snakeX = "";
   currentPos.snakeY = "";
   currentPos.appleX = "";
   currentPos.appleY = "";
-}
+};
+
 //Triggers for initiation and restart
 const play = () => {
   if (id) {
@@ -153,16 +155,16 @@ const checkBounds = () => {
     gameOverRun();
   }
 };
+
 const checkSnakeCollision = () => {
   const x = currentPos.snakeX;
   const y = currentPos.snakeY;
-  for(i=0; i<bodyPositions.length; i++){
-    if(x === bodyPositions[i][0]
-      && y === bodyPositions[i][1]){
+  for (i = 0; i < bodyPositions.length; i++) {
+    if (x === bodyPositions[i][0] && y === bodyPositions[i][1]) {
       gameOverRun();
     }
   }
-}
+};
 
 const checkAndUpdatePositions = () => {
   if (speed.x || speed.y) {
@@ -172,55 +174,58 @@ const checkAndUpdatePositions = () => {
       canvasElementsDim,
       canvasElementsDim
     );
-    if(pending){
+    if (pending) {
       generateSnakeBody();
       pending--;
-    }
-    else if(bodyPositions.length){
+    } else if (bodyPositions.length) {
       updateSnake();
     }
     currentPos.snakeX += speed.x;
     currentPos.snakeY += speed.y;
-    generateBlock(currentPos.snakeX, currentPos.snakeY, 'green');
+
+    generateBlock(currentPos.snakeX, currentPos.snakeY, "green");
   }
 };
 
 const updateScore = () => {
   score += 5;
-  pending +=5;
+  pending += 5;
+  dispScore.innerHTML = `Score: ${score}`;
 };
 
 //First should follow head, rest should follow the next.
 const updateSnake = () => {
   let length = bodyPositions.length;
   //For first body element
-  let pos = bodyPositions[length-1];
+  let pos = bodyPositions[length - 1];
   let temp = pos;
   ctx.clearRect(pos[0], pos[1], canvasElementsDim, canvasElementsDim);
   pos = [currentPos.snakeX, currentPos.snakeY];
-  generateBlock(pos[0], pos[1], 'blue');
-  bodyPositions[length-1] = pos;  
+  generateBlock(pos[0], pos[1], "blue");
+  bodyPositions[length - 1] = pos;
 
   //For subsequent body elements
-  for(i = length-2; i>=0; i--){
+  for (i = length - 2; i >= 0; i--) {
     let pos = bodyPositions[i];
     ctx.clearRect(pos[0], pos[1], canvasElementsDim, canvasElementsDim);
     pos = temp;
-    generateBlock(pos[0], pos[1], 'blue');
+    generateBlock(pos[0], pos[1], "blue");
     temp = bodyPositions[i];
     bodyPositions[i] = pos;
   }
-}
+};
 
 const checkAndUpdateApple = () => {
-  if (currentPos.snakeX === currentPos.appleX 
-    && currentPos.snakeY === currentPos.appleY) {
+  if (
+    currentPos.snakeX === currentPos.appleX &&
+    currentPos.snakeY === currentPos.appleY
+  ) {
     generateApple();
     updateScore();
   }
 };
 
-//Runs continously, updates and checks
+//Runs continuously, updates and checks
 const update = () => {
   checkAndUpdatePositions();
   checkAndUpdateApple();
@@ -230,28 +235,28 @@ const update = () => {
 
 //Functions for movement
 const moveUp = () => {
-  if(direction !=="down" || !bodyPositions.length){
+  if (direction !== "down" || !bodyPositions.length) {
     speed.y = -30;
     speed.x = 0;
     direction = "up";
   }
 };
 const moveDown = () => {
-  if(direction !== "up" || !bodyPositions.length){
+  if (direction !== "up" || !bodyPositions.length) {
     speed.y = 30;
     speed.x = 0;
     direction = "down";
   }
 };
 const moveLeft = () => {
-  if(direction !== "right" || !bodyPositions.length){
+  if (direction !== "right" || !bodyPositions.length) {
     speed.y = 0;
     speed.x = -30;
     direction = "left";
   }
 };
 const moveRight = () => {
-  if(direction !== "left" || !bodyPositions.length){  
+  if (direction !== "left" || !bodyPositions.length) {
     speed.y = 0;
     speed.x = 30;
     direction = "right";
