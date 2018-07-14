@@ -189,9 +189,9 @@ const checkAndUpdatePositions = () => {
 };
 
 const updateScore = () => {
-  document.querySelector("#score").innerHTML = `Score: ${score}`
   score += 5;
   pending +=5;
+  document.querySelector("#score").innerHTML = `Score: ${score}`
 };
 
 //First should follow head, rest should follow the next.
@@ -217,19 +217,12 @@ const updateSnake = () => {
 }
 
 const checkAndUpdateApple = () => {
-  if (
-    currentPos.snakeX === currentPos.appleX &&
-    currentPos.snakeY === currentPos.appleY
-  ) {
-    updateScore();
-    // createAnimatedBody();
   if (currentPos.snakeX === currentPos.appleX 
     && currentPos.snakeY === currentPos.appleY) {
-
     generateApple();
     updateScore();
   }
-}};;
+};
 
 //Runs continuously, updates and checks
 const update = () => {
