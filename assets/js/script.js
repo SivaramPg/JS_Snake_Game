@@ -294,17 +294,15 @@ const updateSnake = () => {
 }
 
 const checkAndUpdateApple = () => {
-<<<<<<< HEAD
   if (
     currentPos.snakeX === currentPos.appleX &&
     currentPos.snakeY === currentPos.appleY
   ) {
     updateScore();
     // createAnimatedBody();
-=======
   if (currentPos.snakeX === currentPos.appleX 
     && currentPos.snakeY === currentPos.appleY) {
->>>>>>> 83b4256cc910b7168a02084134089f5741d388ae
+
     generateApple();
     updateScore();
   }
