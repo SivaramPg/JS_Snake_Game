@@ -5,9 +5,8 @@ const footerHeight = document.querySelector("footer").offsetHeight;
 
 // creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
 const canvasElementsDim = 30;
-let id = 0,
-  score = 1;
-let snakelength = 1;
+let id = 0;
+let score = 1;;
 let direction = "";
 //Can be used later to create gap b/w new snake blocks.
 //const sizeOfGrid = 30;
@@ -59,56 +58,56 @@ const generateSnakeHead = () => {
   generateSnake(xPos, yPos, "green"); // setting different colors for dev purposed only
 };
 
-const generateSnakeBody = () => {
-  // Passes the correctly oriented body to canvas and appends it to the snake.
-  let bodyXStartPos = currentPos.snakeX; // separately caching and tracking the position of the head to calculate the body positions without changing the head position.
-  let bodyYStartPos = currentPos.snakeY;
+// const generateSnakeBody = () => {
+//   // Passes the correctly oriented body to canvas and appends it to the snake.
+//   let bodyXStartPos = currentPos.snakeX - 30; // separately caching and tracking the position of the head to calculate the body positions without changing the head position.
+//   let bodyYStartPos = currentPos.snakeY - 30;
 
-  switch (
-    direction // current heading direction now set on keypress.
-  ) {
-    case "up":
-      for (let i = 1; i < score; i++) {
-        generateSnake(
-          bodyXStartPos,
-          (bodyYStartPos += canvasElementsDim),
-          "blue"
-        );
-        console.log(bodyXStartPos, bodyYStartPos);
-      }
-      break;
-    case "down":
-      for (let i = 1; i < score; i++) {
-        generateSnake(
-          bodyXStartPos,
-          (bodyYStartPos -= canvasElementsDim),
-          "blue"
-        );
-        console.log(bodyXStartPos, bodyYStartPos);
-      }
-      break;
-    case "right":
-      for (let i = 1; i < score; i++) {
-        generateSnake(
-          (bodyXStartPos -= canvasElementsDim),
-          bodyYStartPos,
-          "blue"
-        );
-        console.log(bodyXStartPos, bodyYStartPos);
-      }
-      break;
-    case "left":
-      for (let i = 1; i < score; i++) {
-        generateSnake(
-          (bodyXStartPos += canvasElementsDim),
-          bodyYStartPos,
-          "blue"
-        );
-        console.log(bodyXStartPos, bodyYStartPos);
-      }
-      break;
-  }
-};
+//   switch (
+//     direction // current heading direction now set on keypress.
+//   ) {
+//     case "up":
+//       // for (let i = 1; i < score; i++) {
+//         generateSnake(
+//           bodyXStartPos,
+//           (bodyYStartPos += canvasElementsDim),
+//           "blue"
+//         );
+//         console.log(bodyXStartPos, bodyYStartPos);
+//       // }
+//       break;
+//     case "down":
+//       // for (let i = 1; i < score; i++) {
+//         generateSnake(
+//           bodyXStartPos,
+//           (bodyYStartPos -= canvasElementsDim),
+//           "blue"
+//         );
+//         console.log(bodyXStartPos, bodyYStartPos);
+//       // }
+//       break;
+//     case "right":
+//       // for (let i = 1; i < score; i++) {
+//         generateSnake(
+//           (bodyXStartPos -= canvasElementsDim),
+//           bodyYStartPos,
+//           "blue"
+//         );
+//         console.log(bodyXStartPos, bodyYStartPos);
+//       // }
+//       break;
+//     case "left":
+//       // for (let i = 1; i < score; i++) {
+//         generateSnake(
+//           (bodyXStartPos += canvasElementsDim),
+//           bodyYStartPos,
+//           "blue"
+//         );
+//         console.log(bodyXStartPos, bodyYStartPos);
+//       // }
+//       break;
+//   }
+// };
 
 const generateApple = () => {
   let randXPos =
@@ -168,15 +167,53 @@ const checkAndUpdatePosition = () => {
     );
     currentPos.snakeX += speed.x;
     currentPos.snakeY += speed.y;
-    ctx.fillStyle = "#FF0";
+    ctx.fillStyle = 'green';
     ctx.fillRect(
       currentPos.snakeX,
       currentPos.snakeY,
       canvasElementsDim,
       canvasElementsDim
     );
+    // createAnimatedBody();
+  let xBody = currentPos.snakeX - speed.x;
+  let yBody = currentPos.snakeY - speed.y;
+  for (i = 1; i < score; i++) {
+    ctx.clearRect(
+      xBody,
+      yBody,
+      canvasElementsDim,
+      canvasElementsDim
+    );
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(
+      xBody,
+      yBody,
+      canvasElementsDim,
+      canvasElementsDim
+    );
+  }
   }
 };
+
+// const createAnimatedBody = () => {
+//   let xBody = currentPos.snakeX - speed.x;
+//   let yBody = currentPos.snakeY - speed.y;
+//   for (i = 1; i < score; i++) {
+//     ctx.clearRect(
+//       xBody - speed.x,
+//       yBody - speed.y,
+//       canvasElementsDim,
+//       canvasElementsDim
+//     );
+//     ctx.fillStyle = 'blue';
+//     ctx.fillRect(
+//       xBody,
+//       yBody,
+//       canvasElementsDim,
+//       canvasElementsDim
+//     );
+//   }
+// }
 
 const updateScore = () => {
   score += 5;
@@ -190,7 +227,7 @@ const checkAndUpdateApple = () => {
     currentPos.snakeY === currentPos.appleY
   ) {
     updateScore();
-    generateSnakeBody();
+    // createAnimatedBody();
     generateApple();
   }
 };
