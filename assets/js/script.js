@@ -75,13 +75,9 @@ const yGridPositions = () => {
 const generateBlock = (xPos, yPos, color) => {
   borderThickness = 1;
   ctx.fillStyle = color;
-<<<<<<< HEAD
   ctx.fillRect(xPos+1, yPos+1, sizeOfObject, sizeOfObject);
-=======
-  ctx.fillRect(xPos, yPos, canvasElementsDim, canvasElementsDim);
   // Adding border to the blocks ... They should be within the footprint of the block ie inside 30x30 otherwise they will not be cleared. giving them the same dimensions as that of the block will also not work
   // ctx.strokeRect(xPos+borderThickness, yPos+borderThickness, canvasElementsDim-(2*borderThickness), canvasElementsDim-(2*borderThickness));
->>>>>>> 20ee86876289528d779b663f1296e17491b10071
 };
 
 const generateSnakeHead = () => {
