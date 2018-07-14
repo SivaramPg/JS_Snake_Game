@@ -26,7 +26,7 @@ header #heading {
   height: auto; /*required.... do not remove*/
   width: auto;
   background: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 2.5rem 0.1rem black;
+  box-shadow: 0 0 1rem 0.05rem black;
 }
 
 #myCanvas {
@@ -38,12 +38,12 @@ header #heading {
    border: 0.5rem solid yellowgreen; */
   background: palevioletred;
   margin: 40px;
-  box-shadow: 0 0 2.5rem 0.1rem black;
+  box-shadow: 0 0 1rem 0.05rem black;
   border-radius: 0.5rem;
 }
 
 footer {
-  box-shadow: 0 0 2.5rem 0.1rem black;
+  box-shadow: 0 0 1rem 0.05rem black;
   background-color: rgba(255, 255, 255, 0.5);
   padding: 2rem;
   height: auto; /*required.... do not remove*/
