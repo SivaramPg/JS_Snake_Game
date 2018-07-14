@@ -30,10 +30,11 @@ const speed = {
 };
 //For resizing the canvas depending on the window size
 const setDisplay = () => {
-  canvas.height = window.innerHeight - headerHeight - footerHeight;
-  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight - headerHeight - footerHeight-80;
+  canvas.width = window.innerWidth -80 ;
   canvas.height -= canvas.height % canvasElementsDim;
   canvas.width -= canvas.width % canvasElementsDim;
+  document.querySelector("#score").innerHTML = `Score: ${score}`
 };
 
 //Dividing the canvas into pseudo grids.
@@ -188,6 +189,7 @@ const checkAndUpdatePositions = () => {
 };
 
 const updateScore = () => {
+  document.querySelector("#score").innerHTML = `Score: ${score}`
   score += 5;
   pending +=5;
 };

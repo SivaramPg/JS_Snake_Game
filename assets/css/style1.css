@@ -11,32 +11,40 @@ html {
   font-size: 62.5%;
   font-family: "Fira Sans", "Open Sans", sans-serif, "Courier New", monospace;
   overflow: hidden;
+  background: linear-gradient(210deg, rgba(68,148,71,0.4), rgba(1,31,192,0.7));
 }
 
 header #heading {
   /* margin: auto 50%; */
-  font-size: 2rem;
+  font-size: 3rem;
   text-align: center;
-  padding: 1rem;
-  height: 4rem;
+  padding: 1.5rem;
+  height: auto;   /*required.... do not remove*/
   width: auto;
-  background: dodgerblue;
+  background: rgba(255,255,255,0.5);
+  box-shadow: 0 0 2.5rem 0.1rem black;
 }
 
 #myCanvas {
   /* keep width here so the app does not start scrolling vertically and overflows behind the vertical scroll bar 
   Changing height to 100% always displays footer and header
    */
-  width: 100%;
-  height: 100%;
-  border: 0.1rem solid red;
+  /* width: 100%; */
+  /* height: 100%; */
+  /* border: 0.5rem solid yellowgreen; */
+  background: palevioletred;
+  margin: 40px;
+  box-shadow: 0 0 2.5rem 0.1rem black;
+  border-radius: 0.5rem;
 }
 
 footer {
-  background-color: black;
-  padding: 1rem;
-  height: 4rem;
+  box-shadow: 0 0 2.5rem 0.1rem black;
+  background-color: rgba(255,255,255,0.5);
+  padding: 2rem;
+  height: auto;  /*required.... do not remove*/
   width: auto;
+  margin: 0;
 }
 
 footer .footerElements {
@@ -44,10 +52,19 @@ footer .footerElements {
   font-size: 1rem;
   text-align: left;
   line-height: 1.6rem;
-  color: #f3f3f3;
+  color: #000;
 }
 
 footer .footerElements a {
-  color: red;
-  text-decoration-color: red;
+  font-size: 1.5rem;
+  color: blue;
+  text-decoration-color:blue;
+}
+
+footer #score {
+  height: auto;
+  color: black;
+  font-size: 4rem;
+  float: right;
+  padding-right: 200px;
 }
