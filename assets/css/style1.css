@@ -99,7 +99,8 @@ html {
   text-align: center;
 }
 
-#restartgame, #endgame {
+#restartgame,
+#endgame {
   font-size: 1.5rem;
   text-align: center;
   border-radius: 0.5rem;
@@ -159,7 +160,7 @@ header #heading {
 
 #footer .footerElement a {
   font-size: 1.5rem;
-  color:tomato ;
+  color: tomato;
   text-decoration-color: tomato;
 }
 

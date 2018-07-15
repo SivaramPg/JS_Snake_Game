@@ -12,6 +12,7 @@ const headerHeight = document.querySelector("header").offsetHeight;
 const footer = document.querySelector("footer");
 const footerHeight = document.querySelector("footer").offsetHeight;
 const dispScore = document.getElementById("score");
+
 // creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
 const canvasElementsDim = 30;
 let id = 0,
@@ -35,6 +36,7 @@ const speed = {
   x: 0,
   y: 0
 };
+
 //For resizing the canvas depending on the window size
 const setDisplay = () => {
   canvas.height = window.innerHeight - headerHeight - footerHeight - 80; // Subtracting the padding applied on both sides
@@ -79,9 +81,7 @@ const yGridPositions = () => {
 
 const generateBlock = (xPos, yPos, color) => {
   ctx.fillStyle = color;
-  ctx.fillRect(xPos+1, yPos+1, sizeOfObject, sizeOfObject);
-  // Adding border to the blocks ... They should be within the footprint of the block ie inside 30x30 otherwise they will not be cleared. giving them the same dimensions as that of the block will also not work
-  // ctx.strokeRect(xPos+borderThickness, yPos+borderThickness, canvasElementsDim-(2*borderThickness), canvasElementsDim-(2*borderThickness));
+  ctx.fillRect(xPos + 1, yPos + 1, sizeOfObject, sizeOfObject);
 };
 
 const generateSnakeHead = () => {
@@ -92,7 +92,7 @@ const generateSnakeHead = () => {
   generateBlock(xPos, yPos, "green"); // setting different colors for dev purposed only
 };
 
-generateSnakeBody = () => {
+const generateSnakeBody = () => {
   let bodyXStartPos = currentPos.snakeX;
   let bodyYStartPos = currentPos.snakeY;
   switch (direction) {
@@ -113,11 +113,9 @@ generateSnakeBody = () => {
 };
 
 const checkNewApplePosition = (x, y) => {
-  if(x === currentPos.snakeX && y === currentPos.snakeY)
-    return false;
+  if (x === currentPos.snakeX && y === currentPos.snakeY) return false;
   for (i = 0; i < bodyPositions.length; i++) {
-    if (x === bodyPositions[i][0] && y === bodyPositions[i][1]) 
-      return false;
+    if (x === bodyPositions[i][0] && y === bodyPositions[i][1]) return false;
   }
   return true;
 };
@@ -161,11 +159,12 @@ const play = () => {
   id = setInterval(update, 90);
 };
 
+// Runs if the user clicks on the Play Again button in the end Popup.
 const restartFunc = () => {
   reset();
   play();
   hideEndPopup();
-}
+};
 
 //After collision conditione or escape
 const gameOverRun = () => {
@@ -173,7 +172,7 @@ const gameOverRun = () => {
   id = 0;
   speed.x = 0;
   speed.y = 0;
-  // const playAgain = confirm(`Game Over! Your score is ${score}! Play Again?`); // check if user wants to play again, confirm returns either true or false on selection.
+  // Shows the end popup only... All further actions are handled by event listeners.
   showEndPopup();
 };
 
@@ -198,8 +197,8 @@ const checkSnakeCollision = () => {
 const checkAndUpdatePositions = () => {
   if (speed.x || speed.y) {
     ctx.clearRect(
-      currentPos.snakeX+1,
-      currentPos.snakeY+1,
+      currentPos.snakeX + 1,
+      currentPos.snakeY + 1,
       sizeOfObject,
       sizeOfObject
     );
@@ -228,7 +227,7 @@ const updateSnake = () => {
   //For first body element
   let pos = bodyPositions[length - 1];
   let temp = pos;
-  ctx.clearRect(pos[0]+1, pos[1]+1, sizeOfObject, sizeOfObject);
+  ctx.clearRect(pos[0] + 1, pos[1] + 1, sizeOfObject, sizeOfObject);
   pos = [currentPos.snakeX, currentPos.snakeY];
   generateBlock(pos[0], pos[1], "blue");
   bodyPositions[length - 1] = pos;
@@ -236,7 +235,7 @@ const updateSnake = () => {
   //For subsequent body elements
   for (i = length - 2; i >= 0; i--) {
     let pos = bodyPositions[i];
-    ctx.clearRect(pos[0]+1, pos[1]+1, sizeOfObject, sizeOfObject);
+    ctx.clearRect(pos[0] + 1, pos[1] + 1, sizeOfObject, sizeOfObject);
     pos = temp;
     generateBlock(pos[0], pos[1], "blue");
     temp = bodyPositions[i];
@@ -260,6 +259,25 @@ const update = () => {
   checkAndUpdateApple();
   checkSnakeCollision();
   checkBounds();
+};
+
+// Functions for showing and hiding popups at the start and end of the game.
+// They have the ability to affect the start and stop of the game on clicking the buttons.
+const showInitialPopup = () => {
+  initialPopup.style.display = "block";
+};
+
+const hideInitialPopup = () => {
+  initialPopup.style.display = "none";
+};
+
+const showEndPopup = () => {
+  endPopupHeading.innerHTML = `You Scored: ${score}`;
+  endPopup.style.display = "block";
+};
+
+const hideEndPopup = () => {
+  endPopup.style.display = "none";
 };
 
 //Functions for movement
@@ -295,8 +313,14 @@ const moveRight = () => {
 //Event Listeners
 window.addEventListener("load", setDisplay);
 window.addEventListener("load", play);
+window.addEventListener("load", showInitialPopup);
 window.addEventListener("resize", setDisplay);
 window.addEventListener("resize", play);
+window.addEventListener("keydown", hideInitialPopup);
+
+startGameButton.addEventListener("click", hideInitialPopup);
+restartGame.addEventListener("click", restartFunc);
+endGame.addEventListener("click", hideEndPopup);
 
 document.addEventListener("keydown", event => {
   let key = event.which || event.keyCode;
@@ -319,25 +343,3 @@ document.addEventListener("keydown", event => {
   }
 });
 
-const showInitialPopup = () => {
-  initialPopup.style.display = "block";
-}
-
-const hideInitialPopup = () => {
-  initialPopup.style.display = "none";
-}
-
-const showEndPopup = () => {
-  endPopupHeading.innerHTML = `You Scored: ${score}`;
-  endPopup.style.display = 'block';
-}
-
-const hideEndPopup = () => {
-  endPopup.style.display = "none";
-}
-
-window.addEventListener('load', showInitialPopup);
-window.addEventListener('keydown', hideInitialPopup);
-startGameButton.addEventListener('click', hideInitialPopup);
-restartGame.addEventListener('click', restartFunc )
-endGame.addEventListener('click', hideEndPopup);
