@@ -1,12 +1,17 @@
 const body = document.querySelector("body");
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
+const initialPopup = document.getElementById("infopopup");
+const startGameButton = document.getElementById("startgame");
+const endPopup = document.getElementById("replaypopup");
+const endPopupHeading = document.getElementById("scoreheading");
+const restartGame = document.getElementById("restartgame");
+const endGame = document.getElementById("endgame");
 const header = document.querySelector("header");
 const headerHeight = document.querySelector("header").offsetHeight;
 const footer = document.querySelector("footer");
 const footerHeight = document.querySelector("footer").offsetHeight;
 const dispScore = document.getElementById("score");
-
 // creating a const with canvas elements (snake and apple) dimensions so it can be altered easily without affecting code.
 const canvasElementsDim = 30;
 let id = 0,
@@ -156,19 +161,20 @@ const play = () => {
   id = setInterval(update, 90);
 };
 
+const restartFunc = () => {
+  reset();
+  play();
+  hideEndPopup();
+}
+
 //After collision conditione or escape
 const gameOverRun = () => {
   clearInterval(id);
   id = 0;
   speed.x = 0;
   speed.y = 0;
-  const playAgain = confirm(`Game Over! Your score is ${score}! Play Again?`); // check if user wants to play again, confirm returns either true or false on selection.
-  if (playAgain) {
-    reset();
-    play();
-  } else {
-    alert("Thanks for playing");
-  }
+  // const playAgain = confirm(`Game Over! Your score is ${score}! Play Again?`); // check if user wants to play again, confirm returns either true or false on selection.
+  showEndPopup();
 };
 
 const checkBounds = () => {
@@ -312,3 +318,26 @@ document.addEventListener("keydown", event => {
       break;
   }
 });
+
+const showInitialPopup = () => {
+  initialPopup.style.display = "block";
+}
+
+const hideInitialPopup = () => {
+  initialPopup.style.display = "none";
+}
+
+const showEndPopup = () => {
+  endPopupHeading.innerHTML = `You Scored: ${score}`;
+  endPopup.style.display = 'block';
+}
+
+const hideEndPopup = () => {
+  endPopup.style.display = "none";
+}
+
+window.addEventListener('load', showInitialPopup);
+window.addEventListener('keydown', hideInitialPopup);
+startGameButton.addEventListener('click', hideInitialPopup);
+restartGame.addEventListener('click', restartFunc )
+endGame.addEventListener('click', hideEndPopup);
