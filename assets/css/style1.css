@@ -18,13 +18,112 @@ html {
   );
 }
 
+#infopopup {
+  border: 1px solid black;
+  position: fixed;
+  display: none;
+  width: 40rem;
+  height: 15rem;
+  overflow: auto;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: 50vh 50vw;
+  transform: translate(-50%, -50%);
+  line-height: 2.5rem;
+  text-align: center;
+  color: white;
+  background: black;
+  padding: 1rem 0 0 0;
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem 0.05rem black;
+}
+
+#infopopup .heading {
+  font-size: 2rem;
+  text-align: center;
+  text-decoration-line: underline;
+}
+
+#infopopup .controls {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+#infopopup #startgame {
+  font-size: 1.5rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  border: 0;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  background-color: green;
+  border: 1px solid #7a8eb8;
+  box-shadow: 0 0 0.5rem 0.05rem white;
+}
+
+#replaypopup {
+  border: 1px solid black;
+  position: fixed;
+  display: none;
+  width: 25rem;
+  height: 15rem;
+  overflow: auto;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: 50vh 50vw;
+  transform: translate(-50%, -50%);
+  line-height: 3rem;
+  text-align: center;
+  color: white;
+  background: black;
+  padding: 1rem 0 0 0;
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem 0.05rem black;
+}
+
+#replaypopup #scoreheading {
+  font-size: 2rem;
+  text-align: center;
+  text-decoration-line: underline;
+}
+
+#replaypopup .controls {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+#restartgame,
+#endgame {
+  font-size: 1.5rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  border: 0;
+  padding: 0.5rem;
+  margin: 0.5rem 1rem 0 1rem;
+  cursor: pointer;
+  background-color: green;
+  border: 1px solid #7a8eb8;
+  box-shadow: 0 0 0.5rem 0.05rem white;
+}
+
+#endgame {
+  background-color: red;
+}
+
 header #heading {
   font-size: 3rem;
   text-align: center;
   padding: 0.5rem;
   height: auto; /*required.... do not remove*/
   width: auto;
-  color: rgba(122, 142, 184);
+  color: #7a8eb8;
   background: rgba(26, 48, 96);
   box-shadow: 0 0 1rem 0.05rem black;
 }
@@ -61,7 +160,7 @@ header #heading {
 
 #footer .footerElement a {
   font-size: 1.5rem;
-  color:tomato ;
+  color: tomato;
   text-decoration-color: tomato;
 }
 
